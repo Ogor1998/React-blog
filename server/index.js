@@ -22,6 +22,7 @@ const { AppBlocking } = require('@mui/icons-material');
 const Comment = require('./models/Comment')
 const { uploadToCloudinary } = require('./cloudinary')
 const { upload } = require('./cloudinary')
+const profileRoutes = require('./routes/profileRoutes')
 
 // const { isLoggedIn } = require('./middleware')
 
@@ -77,6 +78,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use("/posts", postRoutes)
+app.use('/profile', profileRoutes)
 
 
 app.post("/posts/:id/comments", async (req, res) => {
@@ -152,23 +154,21 @@ app.post("/login", (req, res, next) => {
     })(req, res, next);
 });
 
-app.post('/register', async (req, res, next) => {
+app.post('/register', upload.single('image'), async (req, res, next) => {
     try {
-        const { username, password, firstname, lastname, email, image } = req.body;
-        const user = new User({
-            username,
-            firstname,
-            lastname,
-            email,
-            image
-        })
+        const { password, ...userData } = req.body;
+        const user = new User(userData)
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer)
+            user.image = result.secure_url
+        }
         const registeredUser = await User.register(user, password)
         req.login(registeredUser, err => {
             if (err) {
                 return next(err)
             }
             console.log(registeredUser)
-            res.redirect("/posts")
+            res.json({ message: 'Registered Successfully', user: registeredUser })
         })
     } catch (error) {
         console.log(error);
@@ -176,25 +176,7 @@ app.post('/register', async (req, res, next) => {
     }
 })
 
-app.get('/profile/:id', async (req, res) => {
-    const user = await User.findById(req.params.id);
-    res.json(user)
-    console.log('this is the :', user)
 
-})
-app.put('/profile/:id', upload.single("image"), async (req, res) => {
-    const { id } = req.params;
-    const updateData = { ...req.body }
-    if (req.file) {
-        const result = await uploadToCloudinary(req.file.buffer)
-        updateData.image = result.secure_url
-    }
-    const updateduser = await User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
-
-    // if (!updateduser) return res.json({ message: "Didn't update" })
-    res.json(updateduser)
-    console.log(updateduser)
-})
 
 
 app.post("/logout", (req, res) => {

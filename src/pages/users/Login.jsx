@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
@@ -44,18 +44,26 @@ const Login = ({ setMessage, setIsLoggedIn, setCurrentUser }) => {
                 component="form"
                 onSubmit={handSubmit}
                 sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
+                    '& > :not(style)': { m: 1, width: '50ch' },
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    border: "1px solid #000"
+                    justifyContent: 'center',
+                    border: "1px solid #000",
+                    height: '50ch'
                 }}
                 noValidate
                 autoComplete="off"
             >
+                <Typography variant='h3'>
+                    Welcome to React Blog
+                </Typography>
+                <Typography variant='h5' color='secondary'>
+                    Sign In here
+                </Typography>
                 <TextField id="outlined-basic" label="Username" variant="outlined" name='username' onChange={handleChange} value={formData.username} />
                 <TextField id="outlined-basic" label="Password" variant="outlined" type='password' name='password' onChange={handleChange} value={formData.password} />
-                <Button type='submit'>Login</Button>
+                <Button type='submit' variant='outlined'>Login</Button>
             </Box>
         </Box>
     );

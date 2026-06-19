@@ -29,7 +29,6 @@ export default function CardComponent({ id, item, handleDelete, isLoggedIn, curr
         currentUser._id === item.author._id;
 
     const isLoggedInAndIsAuthor = isAuthor && isLoggedIn
-    console.log(item)
     return (
 
         <Card sx={{ maxWidth: 345 }}>

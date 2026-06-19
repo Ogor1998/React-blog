@@ -50,7 +50,11 @@ function App() {
         <Route path="/" element={<Home message={message} setMessage={setMessage} />} />
         <Route path="/posts" element={<Home message={message} isLoggedIn={isLoggedIn} currentUser={currentUser} setMessage={setMessage} />} />
         <Route path="/login" element={<Login setMessage={setMessage} setIsLoggedIn={setIsloggedIn} setCurrentUser={setCurrentUser} />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register
+          setIsLoggedIn={setIsloggedIn}
+          setCurrentUser={setCurrentUser}
+          setMessage={setMessage}
+        />} />
         <Route path="/posts/new" element={
           isLoggedIn ?
             <New />
