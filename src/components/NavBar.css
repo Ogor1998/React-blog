@@ -1,10 +1,12 @@
 .NavBar {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     margin-top: 10px;
     gap: 10px;
+    padding-left: 10px;
+
     /* background-color: rgba(128, 0, 128, 0.479); */
 }
 
@@ -14,4 +16,5 @@
     border: 0.4px solid #0063cc;
     /* padding: '3px 4px'; */
     border-radius: 10px;
+    cursor: pointer;
 }

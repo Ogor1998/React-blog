@@ -10,14 +10,14 @@ import { Button } from '@mui/material';
 import DeleteComponent from './DeleteComponent';
 
 export default function CommentComponent({ item, handleDelete, isLoggedIn, isAuthor, currentUser }) {
-    console.log(isAuthor)
+    console.log(item)
     const isCommentAuthor = currentUser?._id === item.author?._id;
     const LoggedInAndAuthor = isLoggedIn && isCommentAuthor;
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', marginTop: '5px' }}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" />
+                    <Avatar src={isCommentAuthor ? currentUser?.image : ''} />
                 </ListItemAvatar>
                 <ListItemText
                     primary={item.author?.username || 'anonymous'}

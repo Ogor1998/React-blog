@@ -10,6 +10,7 @@ export default function Profile() {
     const [isEditting, setIsEditting] = useState(false)
     const { id } = useParams();
     useEffect(() => {
+        if (!id || id === "undefined") return;
         const profileFunc = async () => {
             const response = await axios.get(`/profile/${id}`)
             setProfile(response.data)

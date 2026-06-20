@@ -62,6 +62,12 @@ app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
 }));
+
+app.use((req, res, next) => {
+    console.log("Incoming request:", req.method, req.url)  // ← add this globally
+    next()
+})
+
 app.use(express.json());
 app.use(session({
     secret: 'keyboard cat',
@@ -70,7 +76,8 @@ app.use(session({
     cookie:
     {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: 'lax'
     }
 
 }))
@@ -115,14 +122,15 @@ app.delete("/posts/:postId/comments/:commentId", async (req, res) => {
     const { postId, commentId } = req.params;
     await Comment.findByIdAndDelete(commentId);
     await Blog.findByIdAndUpdate(postId, { $pull: { comments: commentId } })
-    console.log("Delted comment")
+    console.log("Deleted comment")
     res.json({ message: 'Comment deleted' })
 })
 
 
 app.get('/check-auth', (req, res) => {
-    console.log("Session:", req.session)
-    console.log("Is authenticated:", req.isAuthenticated())
+    console.log("Session ID on check-auth:", req.sessionID)
+    console.log("Full user object:", JSON.stringify(req.user))
+    console.log("it gets here")
     console.log("User:", req.user)
     if (req.isAuthenticated()) {
         res.json({ isLoggedIn: true, user: req.user })
@@ -144,10 +152,9 @@ app.post("/login", (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) return next(err);
         if (!user) return res.status(401).json({ message: "Invalid credentials" });
-        console.log("Authenticated user:", user);
         req.logIn(user, (err) => {
             if (err) next(new AppError('Login failed', 500));
-            res.json({ message: "Logged innnnn", user: user.username });
+            res.json({ message: "Logged innnnn", user: user });
 
         });
 
@@ -196,7 +203,7 @@ app.use((err, req, res, next) => {
 
     // Invalid MongoDB ObjectId
     if (err.name === "CastError") {
-        return res.status(400).json({ message: `Invalid Id` });
+        return res.status(400).json({ message: `Post Not found` });
     }
 
     // Mongoose validation errors (missing required fields, etc)

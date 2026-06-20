@@ -36,7 +36,7 @@ export default function CardComponent({ id, item, handleDelete, isLoggedIn, curr
                 component="img"
                 sx={{ height: 140 }}
                 image={item.image}
-                title="green iguana"
+                title={item.title}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

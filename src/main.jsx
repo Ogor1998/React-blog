@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router'
 import axios from 'axios'
 axios.defaults.withCredentials = true  // ← add this
 axios.defaults.baseURL = 'http://localhost:3000'
+console.log("Requesting:", axios.defaults.baseURL + '/check-auth')
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

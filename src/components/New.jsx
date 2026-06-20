@@ -31,8 +31,8 @@ export default function New() {
         form.append("category", formData.category || "");
         form.append("image", file || "");
 
-        console.log([...form.entries()]);
-        console.log(file);
+        // console.log([...form.entries()]);
+        // console.log(file);
 
         try {
             const response = await axios.post("/posts/new", form,
@@ -40,7 +40,7 @@ export default function New() {
             console.log("Success", response.data)
             navigate("/posts")
         } catch (err) {
-            console.log("Error status:", err.response?.status)        // ← add this
+            console.log("Error status:", err.response?.status)
             console.log("Error message:", err.response?.data)
         }
     }
@@ -56,7 +56,7 @@ export default function New() {
         >
 
             <div className='New' >
-                <Typography variant="h5" component="h2" sx={{ width: '70%', textAlign: 'left', padding: '5px' }}>
+                <Typography variant="h5" component="h2" sx={{ textAlign: 'left', padding: '5px' }}>
                     Create Post
                 </Typography>
                 <TextField
@@ -71,7 +71,7 @@ export default function New() {
                 // inputProps={{ maxLength: maxLength }}
                 />
 
-                <h4 style={{ color: formData.title.length >= maxLength ? "red" : "black", textAlign: "right", width: '70%', margin: "0px", fontSize: '13px' }}>{formData.title.length}/{maxLength}</h4>
+                <h4 style={{ color: formData.title.length >= maxLength ? "red" : "black", textAlign: "right", margin: "0px", fontSize: '13px' }}>{formData.title.length}/{maxLength}</h4>
                 <TextField
                     id="filled-multiline-static"
                     label="Content"
@@ -81,31 +81,20 @@ export default function New() {
                     value={formData.content}
                     name="content"
                     variant="filled"
-                    slotProps={{
-                        input: {
-                            endAdornment: (
-                                <>
-                                    {/* <InputAdornment position="end">
-                                        <TextStyles />
-                                    </InputAdornment> */}
-                                    <InputAdornment position="end">
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            size="small"
-                                            sx={{ mt: 11 }}>
-                                            Submit
-                                        </Button>
-                                    </InputAdornment>
-                                </>
-                            ),
-                        },
-                    }}
                     onChange={handleChange}
 
                 />
                 {preview && <img src={preview} width="200" />}
-                <UploadComponent setFile={setFile} setPreview={setPreview} />
+                <Box sx={{ display: 'flex', gap: '10px' }}>
+                    <UploadComponent setFile={setFile} setPreview={setPreview} />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        size="large"
+                    >
+                        Submit
+                    </Button>
+                </Box>
             </div>
 
         </Box>

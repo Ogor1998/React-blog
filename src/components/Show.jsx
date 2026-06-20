@@ -65,9 +65,6 @@ export default function Show({ isLoggedIn, currentUser }) {
         && formData.author
         && currentUser._id === formData.author._id;
 
-    console.log("currentUser:", currentUser)        // ← add this
-    console.log("formData.author:", formData.author) // ← and this
-    console.log("isAuthor:", isAuthor)
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

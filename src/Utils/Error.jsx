@@ -11,8 +11,8 @@ const Error = () => {
     return (
         <Stack sx={{ width: '100%' }} spacing={2}>
 
-            <Alert severity="error">
-                <AlertTitle>{state?.statusCode || 500}</AlertTitle>
+            <Alert severity="error" sx={{ display: 'flex', justifyContent: 'center', fontSize: '30px' }}>
+                <AlertTitle sx={{ fontSize: '20px' }}>{state?.statusCode || 500}</AlertTitle>
                 {state?.message || "Something went wrong"}
             </Alert>
         </Stack>

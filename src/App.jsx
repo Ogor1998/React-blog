@@ -11,7 +11,7 @@ import Show from './components/Show'
 import Edit from './components/Edit'
 import Error from './Utils/Error'
 import Profile from './components/Profile'
-
+import CssBaseline from '@mui/material/CssBaseline';
 
 
 
@@ -33,9 +33,10 @@ function App() {
 
   useEffect(() => {
     const checkAuth = async () => {
+      console.log("About to call check-auth")
       const response = await axios.get('/check-auth', { withCredentials: true })
       setIsloggedIn(response.data.isLoggedIn)
-      console.log('This is new user:', response.data)
+      console.log('Response form check-auth:', response.data)
       setCurrentUser(response.data.user)
     }
     checkAuth();
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <div>
-
+      <CssBaseline />
       <NavBar isLoggedIn={isLoggedIn} currentUser={currentUser} handleLogout={handleLogout} />
 
       <Routes>

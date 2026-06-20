@@ -24,7 +24,7 @@ const Login = ({ setMessage, setIsLoggedIn, setCurrentUser }) => {
             const response = await axios.post("/login", formData)
             setMessage(response.data.message)
             setIsLoggedIn(true)
-            setCurrentUser({ username: response.data.user })
+            setCurrentUser(response.data.user)
             navigate('/posts')
 
         }
