@@ -64,7 +64,7 @@ function App() {
               replace />}
         />
         <Route path="/posts/:id" element={<Show isLoggedIn={isLoggedIn} currentUser={currentUser} />} />
-        <Route path="/posts/:id/edit" element={<Edit />} />
+        <Route path="/posts/:id/edit" element={<Edit setMessage={setMessage} message={message} />} />
         <Route path="*" element={<Error />} />
         <Route path="/error" element={<Error />} />
         <Route path="/profile/:id" element={<Profile />} />

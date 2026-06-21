@@ -27,6 +27,7 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
             try {
                 const response = await axios.get(`/profile/${id}`);
                 setFormData(response.data);
+                setPreview(response.data.image)
             } catch (err) {
                 console.error(err);
             }

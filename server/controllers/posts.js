@@ -58,6 +58,11 @@ module.exports.updatePost = async (req, res) => {
     try {
         const post = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!post) return res.status(400).json({ message: "Not Found" })
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer)
+            post.image = result.secure_url;
+        }
+        await post.save();
         res.json(post)
     } catch (error) {
         res.status(400).send(error.message)

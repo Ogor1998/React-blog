@@ -64,7 +64,7 @@ export default function Show({ isLoggedIn, currentUser }) {
     const isAuthor = currentUser
         && formData.author
         && currentUser._id === formData.author._id;
-
+    // console.log("this is the:", formData)
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -72,13 +72,16 @@ export default function Show({ isLoggedIn, currentUser }) {
             <Card sx={{ width: "100%", padding: "10px" }}>
                 <CardMedia
                     component="img"
-                    sx={{ height: 140 }}
+                    sx={{ height: 300 }}
                     image={formData.image}
                     title="green iguana"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {formData.title}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="div">
+                        Post by {formData.author?.username}
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         {formData.content}
@@ -103,6 +106,7 @@ export default function Show({ isLoggedIn, currentUser }) {
                     isLoggedIn={isLoggedIn}
                     isAuthor={isAuthor}
                     currentUser={currentUser}
+                // isPostAuthor={currentUser?._id === formData.author?._id}
                 />))}
 
             </Box>

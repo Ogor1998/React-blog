@@ -9,9 +9,11 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import DeleteComponent from './DeleteComponent';
 
-export default function CommentComponent({ item, handleDelete, isLoggedIn, isAuthor, currentUser }) {
+export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser }) {
     console.log(item)
     const isCommentAuthor = currentUser?._id === item.author?._id;
+    const isPostAuthor = currentUser?._id === item.author?._id;
+    const canDelete = isLoggedIn && (isCommentAuthor || isPostAuthor)
     const LoggedInAndAuthor = isLoggedIn && isCommentAuthor;
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', marginTop: '5px' }}>
@@ -44,7 +46,7 @@ export default function CommentComponent({ item, handleDelete, isLoggedIn, isAut
                     })}
                 </Typography>
                 {/* {isLoggedIn && <Button onClick={() => handleDelete(item._id)} variant="outlined" color="error">Delete</Button>} */}
-                {LoggedInAndAuthor && <DeleteComponent handleDelete={handleDelete} item={item} />}
+                {canDelete && <DeleteComponent handleDelete={handleDelete} item={item} />}
             </ListItem>
         </List>
     );

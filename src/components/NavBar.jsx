@@ -5,10 +5,6 @@ import NavBarU from "./NavBarU.jsx"
 
 const NavBar = ({ isLoggedIn, currentUser, handleLogout }) => {
     const navigate = useNavigate()
-
-    const profilePage = () => {
-        return navigate(`/profile/${currentUser?._id}`)
-    }
     return (
         <NavBarU isLoggedIn={isLoggedIn} currentUser={currentUser} handleLogout={handleLogout} />
     )

@@ -7,17 +7,22 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Typography } from '@mui/material';
+import UploadComponent from './UploadComponent';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
-
-export default function Edit() {
+export default function Edit({ setMessage, message }) {
     const [formData, setFormData] = useState({ title: "", content: "", author: "", image: "" })
     const navigate = useNavigate();
     const { id } = useParams();
+    const [preview, setPreview] = useState(null)
+    const [file, setFile] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(`/posts/${id}`)
             setFormData(response.data)
+            setPreview(response.data.image)
         }
         fetchData();
     }, [id])
@@ -29,8 +34,21 @@ export default function Edit() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.patch(`/posts/${id}`, formData)
-        navigate(`/posts/${id}`)
+
+        const form = new FormData();
+        form.append("title", formData.title)
+        form.append("content", formData.content)
+        if (file) {
+            form.append("image", file)
+        }
+
+        try {
+            await axios.patch(`/posts/${id}`, form)
+            navigate(`/posts/${id}`)
+        }
+        catch (err) {
+            setMessage(err.response?.message)
+        }
 
     }
     const maxLength = 300;
@@ -42,7 +60,9 @@ export default function Edit() {
             autoComplete="off"
             onSubmit={handleSubmit}
         >
-
+            {message && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+                {message}
+            </Alert>}
             <div className='New' >
                 <Typography variant="h5" component="h2" sx={{ width: '70%', textAlign: 'left', padding: '5px' }}>
                     Update Post
@@ -87,7 +107,7 @@ export default function Edit() {
                     onChange={handleChange}
 
                 />
-                <TextField
+                {/* <TextField
                     id="filled-multiline-flexible"
                     label="Image Link"
                     name="image"
@@ -97,7 +117,11 @@ export default function Edit() {
                     variant="filled"
                     onChange={handleChange}
                 // inputProps={{ maxLength: maxLength }}
-                />
+                /> */}
+                {preview && <img src={preview} width="200" />}
+                <UploadComponent setFile={setFile} setPreview={setPreview} />
+
+
             </div>
 
         </Box>

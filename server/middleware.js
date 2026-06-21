@@ -22,3 +22,22 @@ module.exports.isAuthor = async (req, res, next) => {
     next();
 }
 
+
+module.exports.isCommentAuthor = async (req, res, next) => {
+    const { id, commentId } = req.params;
+    const post = await Blog.findById(id)
+    const comment = await Comment.findById(commentId)
+    if (!comment) {
+        return res.status(404).json({
+            message: 'Comment not found'
+        })
+    }
+    const isCommentAuthor = comment.author.equals(req.user._id);
+    const isPostAuthor = post.author.equals(req.user._id)
+    if (!isCommentAuthor && !isPostAuthor) {
+        return res.status(403).json({
+            message: 'Not authorized'
+        })
+    }
+    next();
+}

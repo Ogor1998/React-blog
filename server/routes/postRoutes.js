@@ -9,7 +9,7 @@ router.get("/", catchAsync(indexPage))
 router.get("/new", catchAsync(renderNewPost))
 router.post("/new", isLoggedIn, upload.single("image"), catchAsync(createPost))
 router.get("/:id", catchAsync(renderPost))
-router.patch("/:id", isLoggedIn, isAuthor, catchAsync(updatePost))
+router.patch("/:id", isLoggedIn, isAuthor, upload.single("image"), catchAsync(updatePost))
 router.delete("/:id", isLoggedIn, isAuthor, catchAsync(deletePost))
 
 
