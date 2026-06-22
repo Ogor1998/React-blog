@@ -119,7 +119,7 @@ app.post("/login", (req, res, next) => {
         if (!user) return res.status(401).json({ message: "Invalid credentials" });
         req.logIn(user, (err) => {
             if (err) next(new AppError('Login failed', 500));
-            res.json({ message: "Logged innnnn", user: user });
+            res.json({ message: `Welcome back, ${user.username}`, user: user });
 
         });
 

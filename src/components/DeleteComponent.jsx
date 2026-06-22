@@ -11,7 +11,7 @@ const ITEM_HEIGHT = 48;
 export default function DeleteComponent({ item, handleDelete }) {
 
     const options = [
-        <Button variant="outlined" onClick={() => handleDelete(item._id)} color="error">Delete</Button>,
+        <Button onClick={() => handleDelete(item._id)} color="error">Delete</Button>,
         // <Button variant="outlined" color="success">Edit</Button>
     ];
     const [anchorEl, setAnchorEl] = React.useState(null);

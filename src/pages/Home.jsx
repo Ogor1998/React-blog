@@ -41,10 +41,15 @@ export default function Home({ message, isLoggedIn, currentUser, setMessage }) {
     return (
         <Box>
             <SearchField handleChange={handleChange} />
-
-            {message && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-                {message}
-            </Alert>}
+            {message && (
+                <Alert
+                    severity="success"
+                    icon={<CheckIcon fontSize="inherit" />}
+                    onClose={() => setMessage("")}
+                >
+                    {message}
+                </Alert>
+            )}
             <Box sx={{ '& > :not(style)': { m: 1 } }}>
                 <Fab
                     color="primary"

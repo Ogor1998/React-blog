@@ -56,7 +56,7 @@ const Register = ({ setIsLoggedIn, setCurrentUser, setMessage }) => {
     }
     return (
         <Box>
-            {error && <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
+            {error && <Alert icon={<CheckIcon fontSize="inherit" />} severity="error" onClose={() => setMessage("")}>
                 {error}
             </Alert>}
             <Box

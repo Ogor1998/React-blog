@@ -44,10 +44,15 @@ export default function Edit({ setMessage, message }) {
 
         try {
             await axios.patch(`/posts/${id}`, form)
-            navigate(`/posts/${id}`)
+            navigate(`/posts/${id}`,
+                {
+                    state: {
+                        success: "Post updated successfully"
+                    }
+                })
         }
         catch (err) {
-            setMessage(err.response?.message)
+            setMessage(err.response?.data?.message || "Failed to update post")
         }
 
     }
@@ -60,7 +65,7 @@ export default function Edit({ setMessage, message }) {
             autoComplete="off"
             onSubmit={handleSubmit}
         >
-            {message && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            {message && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => setMessage("")}>
                 {message}
             </Alert>}
             <div className='New' >

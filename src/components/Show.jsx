@@ -11,6 +11,10 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import CommentComponent from './CommentComponent';
 import Comments from './Comments';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useLocation } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+
 
 export default function Show({ isLoggedIn, currentUser }) {
     const { id: postId } = useParams();
@@ -19,6 +23,8 @@ export default function Show({ isLoggedIn, currentUser }) {
     const [comments, setComments] = useState([])
     const [isComment, setIsComment] = useState(false)
     const navigate = useNavigate();
+    const location = useLocation();
+    const successMessage = location.state?.success
 
 
     useEffect(() => {
@@ -26,8 +32,6 @@ export default function Show({ isLoggedIn, currentUser }) {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`/posts/${postId}`);
-                console.log(response.data);
-                console.log(response.data.comments);
                 setFormData(response.data)
                 setComments(response.data.comments)
             } catch (err) {
@@ -68,6 +72,9 @@ export default function Show({ isLoggedIn, currentUser }) {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            {successMessage && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+                {successMessage}
+            </Alert>}
             <h1>{formData.title}</h1>
             <Card sx={{ width: "100%", padding: "10px" }}>
                 <CardMedia

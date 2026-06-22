@@ -18,6 +18,7 @@ export default function New() {
     const navigate = useNavigate();
     const handleChange = (e) => {
         const { name, value } = e.target
+        if (name === "title" && value.length > 300) return
         setFormData(prev => ({ ...prev, [name]: value }))
     }
 
@@ -68,7 +69,9 @@ export default function New() {
                     maxRows={4}
                     variant="filled"
                     onChange={handleChange}
-                // inputProps={{ maxLength: maxLength }}
+                // slotProps={{
+                //     htmlInput: { maxLength: maxLength }
+                // }}
                 />
 
                 <h4 style={{ color: formData.title.length >= maxLength ? "red" : "black", textAlign: "right", margin: "0px", fontSize: '13px' }}>{formData.title.length}/{maxLength}</h4>
