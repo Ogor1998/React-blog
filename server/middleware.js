@@ -1,4 +1,5 @@
 const Blog = require("./models/Post");
+const Comment = require("./models/Comment")
 module.exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();

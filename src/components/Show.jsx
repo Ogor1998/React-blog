@@ -1,9 +1,4 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box } from '@mui/material';
@@ -14,14 +9,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import ShowCard from './ShowCard';
 
 
 export default function Show({ isLoggedIn, currentUser }) {
     const { id: postId } = useParams();
     const [formData, setFormData] = useState(null)
-    const [error, setError] = useState(null)
     const [comments, setComments] = useState([])
     const [isComment, setIsComment] = useState(false)
+    const [likeCounter, setLikeCounter] = useState(0)
     const navigate = useNavigate();
     const location = useLocation();
     const successMessage = location.state?.success
@@ -34,6 +30,7 @@ export default function Show({ isLoggedIn, currentUser }) {
                 const response = await axios.get(`/posts/${postId}`);
                 setFormData(response.data)
                 setComments(response.data.comments)
+                setLikeCounter(response.data.likes.length)
             } catch (err) {
                 navigate("/error", {
                     state: {
@@ -63,12 +60,29 @@ export default function Show({ isLoggedIn, currentUser }) {
     const handleCommnetShow = () => {
         setIsComment(!isComment)
     }
+    const updateLikeCount = async () => {
+        try {
+            const alreadyLiked = formData.likes?.some(likeId => likeId.toString() === currentUser?._id)
+            if (alreadyLiked) {
+                const response = await axios.delete(`/posts/${postId}/like`)
+                setLikeCounter(response.data.likes)
+                setFormData(prev => ({ ...prev, likes: prev.likes.filter(id => id.toString() !== currentUser._id) }))
+            } else {
+                const response = await axios.post(`/posts/${postId}/like`, {}, { withCredentials: true })
+                setLikeCounter(response.data.likes)
+                setFormData(prev => ({ ...prev, likes: [...prev.likes, currentUser._id] }))
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     if (!formData) return <CircularProgress aria-label="Loading…" />
     const isAuthor = currentUser
         && formData.author
         && currentUser._id === formData.author._id;
-    // console.log("this is the:", formData)
+    console.log("this is the:", formData)
+    const alreadyLiked = formData.likes?.some(likeId => likeId.toString() === currentUser?._id)
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -76,33 +90,11 @@ export default function Show({ isLoggedIn, currentUser }) {
                 {successMessage}
             </Alert>}
             <h1>{formData.title}</h1>
-            <Card sx={{ width: "100%", padding: "10px" }}>
-                <CardMedia
-                    component="img"
-                    sx={{ height: 300 }}
-                    image={formData.image}
-                    title="green iguana"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {formData.title}
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Post by {formData.author?.username}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {formData.content}
-                    </Typography>
-                </CardContent>
-                <Box >
-                    <Button variant='outlined' color='success' sx={{ margin: '10px' }} onClick={() => handleCommnetShow()}>Comment</Button>
-                    {isAuthor && <Link to={`/posts/${formData._id}/edit`} ><Button variant='outlined' color='error'>Edit</Button></Link>}
-                </Box>
-
-            </Card >
+            <ShowCard formData={formData} isAuthor={isAuthor} handleCommnetShow={handleCommnetShow} likeCounter={likeCounter} updateLikeCount={updateLikeCount} alreadyLiked={alreadyLiked} />
 
 
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+
 
                 {isComment && <Comments addComment={addComment} />}
 

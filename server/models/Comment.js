@@ -1,4 +1,4 @@
-console.log("Comment model loaded");
+
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 

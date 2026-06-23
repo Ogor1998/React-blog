@@ -20,6 +20,10 @@ const blogSchema = new Schema({
     image: {
         type: String
     },
+    likes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     comments: [
         {
             type: Schema.Types.ObjectId,
@@ -31,5 +35,6 @@ const blogSchema = new Schema({
         default: Date.now
     }
 });
+
 
 module.exports = mongoose.model("Blog", blogSchema);

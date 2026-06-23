@@ -8,24 +8,20 @@ const port = 3000;
 const cors = require('cors')
 const passport = require('passport')
 const LocalStrategy = require("passport-local").Strategy;
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('./models/User')
 const session = require('express-session')
-const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const Blog = require("./models/Post");
 const AppError = require("./AppError")
 const catchAsync = require("./utils/catchAsync");
 const postRoutes = require("./routes/postRoutes");
-const { AppBlocking } = require('@mui/icons-material');
 const Comment = require('./models/Comment')
 const { uploadToCloudinary } = require('./cloudinary')
 const { upload } = require('./cloudinary')
 const profileRoutes = require('./routes/profileRoutes')
 const commentRoutes = require('./routes/commentRoutes')
+const likeRoutes = require('./routes/likeRoutes')
 
-// const { isLoggedIn } = require('./middleware')
 
 
 mongoose.connect("mongodb://127.0.0.01:27017/blog").then(() => {
@@ -33,24 +29,6 @@ mongoose.connect("mongodb://127.0.0.01:27017/blog").then(() => {
 }).catch((err) => {
     console.log(`Mongo Failed Because ${err}`)
 })
-
-// const opts = {}
-// opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-// opts.secretOrKey = 'Keyboard Cat'
-// opts.issuer = 'test@google.com'
-// opts.audience = 'theinternet.com'
-// passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
-//     User.findOne({ _id: jwt_payload.sub }, function (err, user) {
-//         if (err) {
-//             return done(err, false)
-//         }
-//         if (user) {
-//             return done(null, user)
-//         } else {
-//             return done(null, false)
-//         }
-//     })
-// }))
 
 
 passport.use(new LocalStrategy(User.authenticate()));
@@ -88,8 +66,7 @@ app.use(passport.session())
 app.use("/posts", postRoutes)
 app.use('/profile', profileRoutes)
 app.use('/posts/:id', commentRoutes)
-
-
+app.use('/posts/:id', likeRoutes)
 
 
 app.get('/check-auth', (req, res) => {
