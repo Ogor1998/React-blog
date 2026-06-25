@@ -21,6 +21,7 @@ const { upload } = require('./cloudinary')
 const profileRoutes = require('./routes/profileRoutes')
 const commentRoutes = require('./routes/commentRoutes')
 const likeRoutes = require('./routes/likeRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 
 
@@ -42,10 +43,10 @@ app.use(cors({
     credentials: true
 }));
 
-app.use((req, res, next) => {
-    console.log("Incoming request:", req.method, req.url)  // ← add this globally
-    next()
-})
+// app.use((req, res, next) => {
+//     console.log("Incoming request:", req.method, req.url)  // ← add this globally
+//     next()
+// })
 
 app.use(express.json());
 app.use(session({
@@ -67,13 +68,10 @@ app.use("/posts", postRoutes)
 app.use('/profile', profileRoutes)
 app.use('/posts/:id', commentRoutes)
 app.use('/posts/:id', likeRoutes)
+app.use('/', userRoutes)
 
 
 app.get('/check-auth', (req, res) => {
-    console.log("Session ID on check-auth:", req.sessionID)
-    console.log("Full user object:", JSON.stringify(req.user))
-    console.log("it gets here")
-    console.log("User:", req.user)
     if (req.isAuthenticated()) {
         res.json({ isLoggedIn: true, user: req.user })
     } else {
@@ -82,58 +80,8 @@ app.get('/check-auth', (req, res) => {
 })
 
 
-app.get('/register', (req, res) => {
-    res.json({ message: "You know where you are with" })
-})
-
-app.get('/login', (req, res) => {
-    res.json({ message: "You know where you are with" })
-})
-
-app.post("/login", (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) return next(err);
-        if (!user) return res.status(401).json({ message: "Invalid credentials" });
-        req.logIn(user, (err) => {
-            if (err) next(new AppError('Login failed', 500));
-            res.json({ message: `Welcome back, ${user.username}`, user: user });
-
-        });
-
-    })(req, res, next);
-});
-
-app.post('/register', upload.single('image'), async (req, res, next) => {
-    try {
-        const { password, ...userData } = req.body;
-        const user = new User(userData)
-        if (req.file) {
-            const result = await uploadToCloudinary(req.file.buffer)
-            user.image = result.secure_url
-        }
-        const registeredUser = await User.register(user, password)
-        req.login(registeredUser, err => {
-            if (err) {
-                return next(err)
-            }
-            console.log(registeredUser)
-            res.json({ message: 'Registered Successfully', user: registeredUser })
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(400).json({ message: error.message })
-    }
-})
 
 
-
-
-app.post("/logout", (req, res) => {
-    req.logout((err) => {
-        if (err) return res.status(500).json({ message: "Logout Failed" })
-        res.json({ message: "Logged out" })
-    })
-})
 
 
 app.all(/(.*)/, (req, res, next) => {

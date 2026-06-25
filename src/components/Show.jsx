@@ -81,7 +81,6 @@ export default function Show({ isLoggedIn, currentUser }) {
     const isAuthor = currentUser
         && formData.author
         && currentUser._id === formData.author._id;
-    console.log("this is the:", formData)
     const alreadyLiked = formData.likes?.some(likeId => likeId.toString() === currentUser?._id)
 
     return (
