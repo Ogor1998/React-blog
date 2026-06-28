@@ -58,7 +58,7 @@ function App() {
         />} />
         <Route path="/posts/new" element={
           isLoggedIn ?
-            <New />
+            <New message={message} setMessage={setMessage} />
             : <Navigate to="/login"
               state={{ message: "You must be logged in to create a post." }}
               replace />}

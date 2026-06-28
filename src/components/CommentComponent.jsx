@@ -10,7 +10,7 @@ import { Button } from '@mui/material';
 import DeleteComponent from './DeleteComponent';
 
 export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser }) {
-    console.log(item)
+    // console.log(item)
     const isCommentAuthor = currentUser?._id === item.author?._id;
     const isPostAuthor = currentUser?._id === item.author?._id;
     const canDelete = isLoggedIn && (isCommentAuthor || isPostAuthor)

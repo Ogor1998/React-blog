@@ -95,7 +95,7 @@ export default function Show({ isLoggedIn, currentUser }) {
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
 
 
-                {isComment && <Comments addComment={addComment} />}
+                {isComment && <Comments addComment={addComment} isLoggedIn={isLoggedIn} />}
 
                 {comments.map(item => (<CommentComponent
                     key={item._id}

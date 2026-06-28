@@ -1,15 +1,27 @@
 import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import { TextField, InputAdornment, Button } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 
-const Comments = ({ addComment }) => {
+const Comments = ({ addComment, isLoggedIn }) => {
     const { id } = useParams();
     const [commentData, setCommentData] = useState({ content: "" })
+    const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!isLoggedIn) {
+            navigate('/login',
+                {
+                    state: {
+                        error: "You need to be logged in to do that"
+                    },
+
+                })
+            return;
+        }
+
         console.log("SUBMIT CLICKED");
         try {
             const response = await axios.post(`/posts/${id}/comments`, commentData, { withCredentials: true })

@@ -9,7 +9,6 @@ import { Button } from '@mui/material';
 const ITEM_HEIGHT = 48;
 
 export default function DeleteComponent({ item, handleDelete }) {
-
     const options = [
         <Button onClick={() => handleDelete(item._id)} color="error">Delete</Button>,
         // <Button variant="outlined" color="success">Edit</Button>

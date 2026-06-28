@@ -9,9 +9,11 @@ import axios from 'axios';
 import { Typography } from '@mui/material';
 import TextStyles from './TextStyles';
 import UploadComponent from './UploadComponent';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 
-export default function New() {
+export default function New({ message, setMessage }) {
     const [formData, setFormData] = useState({ title: "", content: "", author: "" })
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(null)
@@ -41,6 +43,7 @@ export default function New() {
             console.log("Success", response.data)
             navigate("/posts")
         } catch (err) {
+            setMessage(err.response?.data)
             console.log("Error status:", err.response?.status)
             console.log("Error message:", err.response?.data)
         }
@@ -55,6 +58,9 @@ export default function New() {
             autoComplete="off"
             onSubmit={handleSubmit}
         >
+            {message && <Alert severity="error" onClose={() => setMessage("")}>
+                {message.message}
+            </Alert>}
 
             <div className='New' >
                 <Typography variant="h5" component="h2" sx={{ textAlign: 'left', padding: '5px' }}>

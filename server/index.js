@@ -82,8 +82,6 @@ app.get('/check-auth', (req, res) => {
 
 
 
-
-
 app.all(/(.*)/, (req, res, next) => {
     next(new AppError('Page not found', 404))
 })
