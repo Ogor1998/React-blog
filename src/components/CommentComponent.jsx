@@ -10,7 +10,7 @@ import { Button } from '@mui/material';
 import DeleteComponent from './DeleteComponent';
 
 export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser }) {
-    // console.log(item)
+    console.log(item.author);
     const isCommentAuthor = currentUser?._id === item.author?._id;
     const isPostAuthor = currentUser?._id === item.author?._id;
     const canDelete = isLoggedIn && (isCommentAuthor || isPostAuthor)
@@ -19,7 +19,7 @@ export default function CommentComponent({ item, handleDelete, isLoggedIn, curre
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', marginTop: '5px' }}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar src={isCommentAuthor ? currentUser?.image : ''} />
+                    <Avatar src={item.author?.image} />
                 </ListItemAvatar>
                 <ListItemText
                     primary={item.author?.username || 'anonymous'}

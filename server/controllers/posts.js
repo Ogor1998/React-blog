@@ -42,8 +42,7 @@ module.exports.renderPost = async (req, res) => {
     const post = await Blog.findById(id).populate("author").populate({
         path: "comments",
         populate: {
-            path: "author",
-            select: "username"
+            path: "author"
         }
     });
     console.log(post)

@@ -13,17 +13,26 @@ import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 
 
+
 export default function New({ message, setMessage }) {
     const [formData, setFormData] = useState({ title: "", content: "", author: "" })
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(null)
+    const [helper, setHelper] = useState(null)
     const navigate = useNavigate();
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name === "title" && value.length > 300) return
         setFormData(prev => ({ ...prev, [name]: value }))
     }
-
+    const helperFunc = () => {
+        if (formData.title.length <= 5) {
+            setHelper("Title must be at least 5 characters long")
+        }
+        else {
+            setHelper(null)
+        }
+    }
 
 
     const handleSubmit = async (e) => {
@@ -70,11 +79,14 @@ export default function New({ message, setMessage }) {
                     id="filled-multiline-flexible"
                     label="Title"
                     name="title"
+                    error={!!helper}
                     multiline
                     value={formData.title}
                     maxRows={4}
                     variant="filled"
                     onChange={handleChange}
+                    onBlur={() => helperFunc()}
+                    helperText={helper}
                 // slotProps={{
                 //     htmlInput: { maxLength: maxLength }
                 // }}

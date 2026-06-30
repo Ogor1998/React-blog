@@ -25,7 +25,7 @@ const userRoutes = require('./routes/userRoutes')
 
 
 
-mongoose.connect("mongodb://127.0.0.01:27017/blog").then(() => {
+mongoose.connect("mongodb://127.0.0.1:27017/blog").then(() => {
     console.log(`Mongo Connection Active`)
 }).catch((err) => {
     console.log(`Mongo Failed Because ${err}`)

@@ -1,4 +1,4 @@
-
+console.log("SEED FILE RUNNING");
 const mongoose = require('mongoose');
 const Comment = require('../models/Comment')
 const Blog = require('../models/Post')

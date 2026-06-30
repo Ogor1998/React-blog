@@ -20,7 +20,7 @@ module.exports.createComment = async (req, res) => {
         await comment.save();
         await comment.populate({
             path: "author",
-            select: "username"
+            select: "username image"
         });
 
         post.comments.push(comment._id);
