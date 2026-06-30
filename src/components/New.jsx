@@ -4,7 +4,7 @@ import '../components/New.css'
 import { InputAdornment, IconButton, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send'
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Typography } from '@mui/material';
 import TextStyles from './TextStyles';
@@ -20,6 +20,8 @@ export default function New({ message, setMessage }) {
     const [preview, setPreview] = useState(null)
     const [helper, setHelper] = useState(null)
     const navigate = useNavigate();
+    const location = useLocation();
+    const errorMessage = location.state?.message;
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name === "title" && value.length > 300) return
@@ -43,20 +45,23 @@ export default function New({ message, setMessage }) {
         form.append("category", formData.category || "");
         form.append("image", file || "");
 
-        // console.log([...form.entries()]);
-        // console.log(file);
-
         try {
             const response = await axios.post("/posts/new", form,
                 { withCredentials: true })
             console.log("Success", response.data)
-            navigate("/posts")
+            setMessage("")
+            navigate("/posts", {
+                state: {
+                    message: "Successfully created new post"
+                }
+            })
         } catch (err) {
             setMessage(err.response?.data)
             console.log("Error status:", err.response?.status)
             console.log("Error message:", err.response?.data)
         }
     }
+    // console.log("message on New page:", message)
     const maxLength = 300;
 
     return (
@@ -68,7 +73,7 @@ export default function New({ message, setMessage }) {
             onSubmit={handleSubmit}
         >
             {message && <Alert severity="error" onClose={() => setMessage("")}>
-                {message.message}
+                {message}
             </Alert>}
 
             <div className='New' >

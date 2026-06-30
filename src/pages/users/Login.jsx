@@ -11,12 +11,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import { IconButton } from '@mui/material';
 
-const Login = ({ setMessage, setIsLoggedIn, setCurrentUser }) => {
+const Login = ({ setMessage, setIsLoggedIn, setCurrentUser, message }) => {
     const [formData, setFormData] = useState({ username: "", password: "" })
     const [error, setError] = useState("")
     const navigate = useNavigate();
     const location = useLocation();
-    const loginMessage = location.state?.error
+    const loginMessage = location.state?.message || message
     const [showPassword, setShowPassword] = useState(false)
 
     useEffect(() => {
@@ -55,10 +55,13 @@ const Login = ({ setMessage, setIsLoggedIn, setCurrentUser }) => {
             console.log(msg)
         }
     }
-
     return (
         <Box>
-
+            {loginMessage && <Alert
+                icon={<CheckIcon fontSize="inherit" />}
+                severity="error" onClose={() => setMessage("")} >
+                {loginMessage}
+            </Alert>}
             {error && <Alert
                 icon={<CheckIcon fontSize="inherit" />}
                 severity="error" onClose={() => setMessage("")} >

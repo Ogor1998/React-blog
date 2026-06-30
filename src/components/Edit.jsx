@@ -29,6 +29,7 @@ export default function Edit({ setMessage, message }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target
+        if (name === "title" && value.length > 300) return
         setFormData(prev => ({ ...prev, [name]: value }))
     }
 
@@ -69,7 +70,7 @@ export default function Edit({ setMessage, message }) {
                 {message}
             </Alert>}
             <div className='New' >
-                <Typography variant="h5" component="h2" sx={{ width: '70%', textAlign: 'left', padding: '5px' }}>
+                <Typography variant="h5" component="h2" sx={{ textAlign: 'left', padding: '5px' }}>
                     Update Post
                 </Typography>
                 <TextField
@@ -84,7 +85,7 @@ export default function Edit({ setMessage, message }) {
                 // inputProps={{ maxLength: maxLength }}
                 />
 
-                <h4 style={{ color: formData.title.length >= maxLength ? "red" : "black", textAlign: "right", width: '70%', margin: "0px", fontSize: '13px' }}>{formData.title.length}/{maxLength}</h4>
+                <h4 style={{ color: formData.title.length >= maxLength ? "red" : "black", textAlign: "right", margin: "0px", fontSize: '13px' }}>{formData.title.length}/{maxLength}</h4>
                 <TextField
                     id="filled-multiline-static"
                     label="Content"
@@ -98,13 +99,7 @@ export default function Edit({ setMessage, message }) {
                         input: {
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        size="small"
-                                        sx={{ mt: 11 }}>
-                                        Update
-                                    </Button>
+
                                 </InputAdornment>
                             ),
                         },
@@ -112,20 +107,17 @@ export default function Edit({ setMessage, message }) {
                     onChange={handleChange}
 
                 />
-                {/* <TextField
-                    id="filled-multiline-flexible"
-                    label="Image Link"
-                    name="image"
-                    multiline
-                    value={formData.image}
-                    maxRows={4}
-                    variant="filled"
-                    onChange={handleChange}
-                // inputProps={{ maxLength: maxLength }}
-                /> */}
                 {preview && <img src={preview} width="200" />}
-                <UploadComponent setFile={setFile} setPreview={setPreview} />
-
+                <Box sx={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                    <UploadComponent setFile={setFile} setPreview={setPreview} />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        size="xl"
+                    >
+                        Update
+                    </Button>
+                </Box>
 
             </div>
 

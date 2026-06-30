@@ -18,6 +18,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 function App() {
 
   const [message, setMessage] = useState("")
+  const [postMessage, setPostMessage] = useState("")
   const [isLoggedIn, setIsloggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
   const navigate = useNavigate();
@@ -28,7 +29,6 @@ function App() {
     setIsloggedIn(false)
     setCurrentUser(null)
     navigate('/posts')
-    console.log("Clicked")
   }
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home message={message} setMessage={setMessage} />} />
         <Route path="/posts" element={<Home message={message} isLoggedIn={isLoggedIn} currentUser={currentUser} setMessage={setMessage} />} />
-        <Route path="/login" element={<Login setMessage={setMessage} setIsLoggedIn={setIsloggedIn} setCurrentUser={setCurrentUser} />} />
+        <Route path="/login" element={<Login setMessage={setMessage} setIsLoggedIn={setIsloggedIn} setCurrentUser={setCurrentUser} message={message} />} />
         <Route path="/register" element={<Register
           setIsLoggedIn={setIsloggedIn}
           setCurrentUser={setCurrentUser}
@@ -58,7 +58,7 @@ function App() {
         />} />
         <Route path="/posts/new" element={
           isLoggedIn ?
-            <New message={message} setMessage={setMessage} />
+            <New message={postMessage} setMessage={setPostMessage} />
             : <Navigate to="/login"
               state={{ message: "You must be logged in to create a post." }}
               replace />}

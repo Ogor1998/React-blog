@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import CardComponent from '../components/CardComponent';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import { Box } from '@mui/material';
@@ -14,6 +14,8 @@ import AddIcon from '@mui/icons-material/Add';
 export default function Home({ message, isLoggedIn, currentUser, setMessage }) {
     const [theData, settheData] = useState([])
     const [search, setSearch] = useState("")
+    const location = useLocation();
+    const postMessage = location.state?.message || message;
     const handleChange = (e) => {
         setSearch(e.target.value)
         // console.log("It's working")
@@ -41,13 +43,13 @@ export default function Home({ message, isLoggedIn, currentUser, setMessage }) {
     return (
         <Box>
             <SearchField handleChange={handleChange} />
-            {message && (
+            {postMessage && (
                 <Alert
                     severity="success"
                     icon={<CheckIcon fontSize="inherit" />}
                     onClose={() => setMessage("")}
                 >
-                    {message}
+                    {postMessage}
                 </Alert>
             )}
             <Box sx={{ '& > :not(style)': { m: 1 } }}>

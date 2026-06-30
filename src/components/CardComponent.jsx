@@ -55,7 +55,7 @@ export default function CardComponent({ id, item, handleDelete, isLoggedIn, curr
                     Post by {item.author?.username || item.author || "Anonymous"}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {item.content}
+                    {item.content.substring(0, 50) + '...'}
                 </Typography>
             </CardContent>
             <CardActions sx={{ display: 'flex', alignItems: 'center' }}>
