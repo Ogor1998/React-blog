@@ -29,7 +29,7 @@ function NavBarU({ isLoggedIn, currentUser, handleLogout }) {
     console.log("isLoggedIn:", isLoggedIn)
     const settings = isLoggedIn && currentUser
         ? [
-            { label: "Profile", path: `/profile/${currentUser._id}` },
+            { label: "Profile", path: `/profile/${currentUser?.username}` },
             { label: "New", path: "/posts/new" },
             { label: "Home", path: "/posts" },
             { label: "Logout", action: handleLogout }

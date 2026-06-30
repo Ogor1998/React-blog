@@ -3,9 +3,16 @@ const User = require('../models/User')
 
 
 module.exports.profileFind = async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({
+        username: req.params.username
+    });
+    if (!user) {
+        return res.status(404).json({
+            message: 'User not found'
+        })
+    }
     res.json(user)
-    console.log('this is the :', user)
+    // console.log('this is the :', user)
 }
 
 module.exports.profileUpdate = async (req, res) => {

@@ -8,16 +8,17 @@ import ProfileEditComponent from "./ProfileEditComponent";
 export default function Profile() {
     const [profile, setProfile] = useState({})
     const [isEditting, setIsEditting] = useState(false)
-    const { id } = useParams();
+    const { username } = useParams();
+    console.log("username:", username);
     useEffect(() => {
-        if (!id || id === "undefined") return;
+        if (!username || username === "undefined") return;
         const profileFunc = async () => {
-            const response = await axios.get(`/profile/${id}`)
+            const response = await axios.get(`/profile/${username}`)
             setProfile(response.data)
             console.log(response.data)
         }
         profileFunc();
-    }, [id])
+    }, [username])
     const handleClick = () => {
         setIsEditting(prev => !prev);
         console.log(isEditting)

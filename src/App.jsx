@@ -67,7 +67,7 @@ function App() {
         <Route path="/posts/:id/edit" element={<Edit setMessage={setMessage} message={message} />} />
         <Route path="*" element={<Error />} />
         <Route path="/error" element={<Error />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile />} />
       </Routes>
 
     </div>
