@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import DeleteComponent from './DeleteComponent';
+import { useNavigate } from 'react-router';
 
 export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser }) {
     console.log(item.author);
@@ -15,10 +16,14 @@ export default function CommentComponent({ item, handleDelete, isLoggedIn, curre
     const isPostAuthor = currentUser?._id === item.author?._id;
     const canDelete = isLoggedIn && (isCommentAuthor || isPostAuthor)
     const LoggedInAndAuthor = isLoggedIn && isCommentAuthor;
+    const navigate = useNavigate();
+    const visitProfile = () => {
+        return navigate(`/profile/${item.author?.username}`)
+    }
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', marginTop: '5px' }}>
             <ListItem alignItems="flex-start">
-                <ListItemAvatar>
+                <ListItemAvatar onClick={() => visitProfile()}>
                     <Avatar src={item.author?.image} />
                 </ListItemAvatar>
                 <ListItemText

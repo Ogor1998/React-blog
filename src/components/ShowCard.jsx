@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 import { Button } from '@mui/material'
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
+import IosShareIcon from '@mui/icons-material/IosShare';
 
 const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLikeCount, alreadyLiked }) => {
     return (
@@ -36,6 +37,7 @@ const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLi
                     {likeCounter}
                 </Button>
                 <Button variant='outlined' color='success' sx={{ margin: '10px' }} onClick={() => handleCommnetShow()}>Comment</Button>
+                <Button variant='outlined'><IosShareIcon />Share</Button>
                 {isAuthor && <Link to={`/posts/${formData._id}/edit`} ><Button variant='outlined' color='error'>Edit</Button></Link>}
             </Box>
 
