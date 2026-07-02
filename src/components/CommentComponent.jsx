@@ -11,7 +11,7 @@ import DeleteComponent from './DeleteComponent';
 import { useNavigate } from 'react-router';
 
 export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser }) {
-    console.log(item.author);
+    // console.log(item.author);
     const isCommentAuthor = currentUser?._id === item.author?._id;
     const isPostAuthor = currentUser?._id === item.author?._id;
     const canDelete = isLoggedIn && (isCommentAuthor || isPostAuthor)

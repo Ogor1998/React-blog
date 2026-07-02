@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import ShowCard from './ShowCard';
+import LinkCopy from '../MiddleWareReact';
 
 
 export default function Show({ isLoggedIn, currentUser }) {
@@ -20,8 +21,9 @@ export default function Show({ isLoggedIn, currentUser }) {
     const [likeCounter, setLikeCounter] = useState(0)
     const navigate = useNavigate();
     const location = useLocation();
-    const successMessage = location.state?.success
-
+    const successMessage = location.state?.success;
+    const errorMessage = location.state?.error;
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         if (!postId) return;
@@ -88,8 +90,14 @@ export default function Show({ isLoggedIn, currentUser }) {
             {successMessage && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
                 {successMessage}
             </Alert>}
+            {errorMessage && <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
+                {errorMessage}
+            </Alert>}
+            {message && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => setMessage("")}>
+                {message}
+            </Alert>}
             <h1>{formData.title}</h1>
-            <ShowCard formData={formData} isAuthor={isAuthor} handleCommnetShow={handleCommnetShow} likeCounter={likeCounter} updateLikeCount={updateLikeCount} alreadyLiked={alreadyLiked} />
+            <ShowCard formData={formData} isAuthor={isAuthor} handleCommnetShow={handleCommnetShow} likeCounter={likeCounter} updateLikeCount={updateLikeCount} alreadyLiked={alreadyLiked} setMessage={setMessage} />
 
 
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>

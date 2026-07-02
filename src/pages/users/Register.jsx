@@ -95,7 +95,7 @@ const Register = ({ setIsLoggedIn, setCurrentUser, setMessage }) => {
                     Welcome to React Blog
                 </Typography>
                 <Typography variant='h5' color='secondary'>
-                    Sign In here
+                    Sign Up here
                 </Typography>
 
                 <Box><AvatarUpload setFile={setFile} />

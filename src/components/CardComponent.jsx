@@ -7,14 +7,10 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import './NavBar.css'
+import LinkCopy from '../MiddleWareReact';
 
 export default function CardComponent({ id, item, handleDelete, isLoggedIn, currentUser, setMessage }) {
-    const copyFunc = () => {
-        const newUrl = `http://localhost:5173/posts/${id}`
-        navigator.clipboard.writeText(newUrl)
-        console.log(newUrl)
-        setMessage("Post Link Copied")
-    }
+
     const deletePost = async () => {
         console.log("deletePost called")
         try {
@@ -59,7 +55,7 @@ export default function CardComponent({ id, item, handleDelete, isLoggedIn, curr
                 </Typography>
             </CardContent>
             <CardActions sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button size="small" onClick={() => copyFunc()}>Share</Button>
+                <Button size="small" onClick={() => LinkCopy(item._id, setMessage)}>Share</Button>
 
                 <Button size="small">
                     <Link to={`/posts/${item._id}`} ><VisibilityIcon color='alert' /></Link></Button>

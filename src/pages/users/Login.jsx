@@ -25,6 +25,10 @@ const Login = ({ setMessage, setIsLoggedIn, setCurrentUser, message }) => {
         }
     }, [location.state]);
 
+    // useEffect(() => {
+    //     console.log("location.state:", location.state);
+    // }, [location]);
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData(prev => ({ ...prev, [name]: value }))
@@ -39,15 +43,16 @@ const Login = ({ setMessage, setIsLoggedIn, setCurrentUser, message }) => {
     const handleMouseUpPassword = (event) => {
         event.preventDefault();
     };
-    const handSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post("/login", formData)
             setMessage(response.data.message)
             setIsLoggedIn(true)
             setCurrentUser(response.data.user)
-            navigate('/posts')
-
+            const from = location.state?.from?.pathname || "/posts";
+            console.log("Redirecting to:", from);
+            navigate(from, { replace: true })
         }
         catch (err) {
             const msg = err.response?.data?.message || loginMessage || "Login failed"
@@ -69,7 +74,7 @@ const Login = ({ setMessage, setIsLoggedIn, setCurrentUser, message }) => {
             </Alert>}
             <Box
                 component="form"
-                onSubmit={handSubmit}
+                onSubmit={handleLogin}
                 sx={{
                     '& > :not(style)': { m: 2, width: '50ch' },
                     display: "flex",

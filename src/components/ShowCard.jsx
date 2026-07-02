@@ -5,8 +5,9 @@ import { Button } from '@mui/material'
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
 import IosShareIcon from '@mui/icons-material/IosShare';
+import LinkCopy from '../MiddleWareReact';
 
-const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLikeCount, alreadyLiked }) => {
+const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLikeCount, alreadyLiked, setMessage }) => {
     return (
         <Card sx={{ width: "100%", padding: "10px" }}>
             <CardMedia
@@ -37,7 +38,7 @@ const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLi
                     {likeCounter}
                 </Button>
                 <Button variant='outlined' color='success' sx={{ margin: '10px' }} onClick={() => handleCommnetShow()}>Comment</Button>
-                <Button variant='outlined'><IosShareIcon />Share</Button>
+                <Button variant='outlined' onClick={() => LinkCopy(formData._id, setMessage)}><IosShareIcon />Share</Button>
                 {isAuthor && <Link to={`/posts/${formData._id}/edit`} ><Button variant='outlined' color='error'>Edit</Button></Link>}
             </Box>
 

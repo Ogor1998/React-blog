@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Login from './pages/users/Login'
 import Register from './pages/users/Register'
 import Home from './pages/Home'
@@ -14,7 +14,6 @@ import Profile from './components/Profile'
 import CssBaseline from '@mui/material/CssBaseline';
 
 
-
 function App() {
 
   const [message, setMessage] = useState("")
@@ -22,6 +21,7 @@ function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     const response = await axios.post('/logout', {}, { withCredentials: true })
@@ -60,7 +60,10 @@ function App() {
           isLoggedIn ?
             <New message={postMessage} setMessage={setPostMessage} />
             : <Navigate to="/login"
-              state={{ message: "You must be logged in to create a post." }}
+              state={{
+                from: location
+                , message: "You must be logged in to create a post."
+              }}
               replace />}
         />
         <Route path="/posts/:id" element={<Show isLoggedIn={isLoggedIn} currentUser={currentUser} />} />
