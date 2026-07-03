@@ -9,7 +9,7 @@ import {
     Button
 } from "@mui/material";
 
-export default function ProfileComponent({ profile, handleClick }) {
+export default function ProfileComponent({ profile, handleClick, isLoggedIn }) {
     if (!profile) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
@@ -36,7 +36,7 @@ export default function ProfileComponent({ profile, handleClick }) {
                             mb: 3,
                         }}
                     >
-                        <Button color='alert' variant="outlined" onClick={handleClick} sx={{ marginBottom: '10px' }}>Edit Profile</Button>
+                        {isLoggedIn && <Button color='alert' variant="outlined" onClick={handleClick} sx={{ marginBottom: '10px' }}>Edit Profile</Button>}
                         <Avatar
                             src={profile.image}
                             alt={profile.username}

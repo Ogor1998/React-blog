@@ -5,7 +5,7 @@ import { Button } from '@mui/material'
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
 import IosShareIcon from '@mui/icons-material/IosShare';
-import LinkCopy from '../MiddleWareReact';
+import LinkCopy from '../../Utils/MiddleWareReact';
 
 const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLikeCount, alreadyLiked, setMessage }) => {
     return (

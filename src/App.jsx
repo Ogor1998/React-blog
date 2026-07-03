@@ -4,12 +4,12 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 import Login from './pages/users/Login'
 import Register from './pages/users/Register'
 import Home from './pages/Home'
-import NavBar from './components/NavBar'
+import NavBar from './components/common/NavBar'
 import axios from 'axios'
-import New from './components/New'
-import Show from './components/Show'
-import Edit from './components/Edit'
-import Error from './Utils/Error'
+import New from './pages/posts/New'
+import Show from './pages/posts/Show'
+import Edit from './pages/posts/Edit'
+import Error from './pages/Error'
 import Profile from './components/Profile'
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -70,7 +70,7 @@ function App() {
         <Route path="/posts/:id/edit" element={<Edit setMessage={setMessage} message={message} />} />
         <Route path="*" element={<Error />} />
         <Route path="/error" element={<Error />} />
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile isLoggedIn={isLoggedIn} />} />
       </Routes>
 
     </div>

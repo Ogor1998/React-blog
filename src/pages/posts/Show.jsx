@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box } from '@mui/material';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import CommentComponent from './CommentComponent';
-import Comments from './Comments';
+import CommentComponent from '../../components/comments/CommentComponent';
+import Comments from '../../components/comments/Comments';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-import ShowCard from './ShowCard';
-import LinkCopy from '../MiddleWareReact';
+import ShowCard from '../../components/posts/ShowCard';
 
 
 export default function Show({ isLoggedIn, currentUser }) {

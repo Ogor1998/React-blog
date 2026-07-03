@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AvatarUpload from "./AvatarUpload";
 import {
     Box,
     TextField,
     Button,
     Typography,
 } from "@mui/material";
-import UploadComponent from "./UploadComponent";
+import UploadComponent from "../posts/UploadComponent";
 
 export default function ProfileEditComponent({ profile, setProfile, handleClick }) {
-    const { id } = useParams();
-
+    const { username } = useParams();
     const [formData, setFormData] = useState({
         username: "",
         firstname: "",
@@ -25,7 +25,7 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get(`/profile/${id}`);
+                const response = await axios.get(`/profile/${username}`);
                 setFormData(response.data);
                 setPreview(response.data.image)
             } catch (err) {
@@ -34,7 +34,7 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
         };
 
         fetchProfile();
-    }, [id]);
+    }, [username]);
 
     useEffect(() => {
         if (profile) {
@@ -72,7 +72,7 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
         }
 
         try {
-            const response = await axios.put(`/profile/${id}`, form, {
+            const response = await axios.put(`/profile/${username}`, form, {
                 withCredentials: true,
             });
             setProfile(response.data)
@@ -95,10 +95,12 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
                 mt: 5,
             }}
         >
+
             <Typography variant="h5">
                 Edit Profile
             </Typography>
 
+            <AvatarUpload setFile={setFile} />
             <TextField
                 label="Username"
                 name="username"
@@ -127,8 +129,8 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
                 onChange={handleChange}
             />
 
-            {preview && <img src={preview} width="200" />}
-            <UploadComponent setFile={setFile} setPreview={setPreview} />
+            {/* {preview && <img src={preview} width="200" />}
+            <UploadComponent setFile={setFile} setPreview={setPreview} /> */}
 
 
             <Box sx={{ display: 'flex', gap: '10px' }}>

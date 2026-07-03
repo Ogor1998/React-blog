@@ -16,15 +16,16 @@ module.exports.profileFind = async (req, res) => {
 }
 
 module.exports.profileUpdate = async (req, res) => {
-    const { id } = req.params;
+    const { username } = req.params;
     const updateData = { ...req.body }
     if (req.file) {
         const result = await uploadToCloudinary(req.file.buffer)
         updateData.image = result.secure_url
     }
-    const updateduser = await User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
-
-    // if (!updateduser) return res.json({ message: "Didn't update" })
+    const updateduser = await User.findOneAndUpdate({ username }, updateData, { new: true, runValidators: true });
+    console.log(req.params);
+    console.log(updateData);
+    if (!updateduser) return res.json({ message: "Didn't update" })
     res.json(updateduser)
-    console.log(updateduser)
+    console.log('this is the updated user:', updateduser)
 }

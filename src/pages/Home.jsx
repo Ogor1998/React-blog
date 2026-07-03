@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import CardComponent from '../components/CardComponent';
+import CardComponent from '../components/posts/CardComponent';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import { TextField, InputAdornment, Button } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -9,12 +9,14 @@ const Comments = ({ addComment, isLoggedIn }) => {
     const { id } = useParams();
     const [commentData, setCommentData] = useState({ content: "" })
     const navigate = useNavigate()
+    const location = useLocation();
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isLoggedIn) {
             navigate('/login',
                 {
                     state: {
+                        from: location,
                         error: "You need to be logged in to do that"
                     },
 

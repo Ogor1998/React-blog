@@ -1,13 +1,13 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import '../components/New.css'
+import '../posts/New.css'
 import { InputAdornment, IconButton, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send'
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Typography } from '@mui/material';
-import UploadComponent from './UploadComponent';
+import UploadComponent from '../../components/posts/UploadComponent';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 

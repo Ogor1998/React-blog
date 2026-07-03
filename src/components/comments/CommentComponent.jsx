@@ -7,7 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
-import DeleteComponent from './DeleteComponent';
+import DeleteComponent from '../common/DeleteComponent';
 import { useNavigate } from 'react-router';
 
 export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser }) {

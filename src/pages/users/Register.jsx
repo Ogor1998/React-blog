@@ -6,13 +6,13 @@ import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router-dom';
-import UploadComponent from '../../components/UploadComponent';
+import UploadComponent from '../../components/posts/UploadComponent';
 import { Typography } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import { IconButton } from '@mui/material';
-import AvatarUpload from '../../components/AvatarUpload';
+import AvatarUpload from '../../components/profile/AvatarUpload';
 
 const Register = ({ setIsLoggedIn, setCurrentUser, setMessage }) => {
     const navigate = useNavigate();
