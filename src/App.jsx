@@ -15,8 +15,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useAuth } from './components/context/AuthContext'
 
 function App() {
-
-  // const [message, setMessage] = useState("")
   const [postMessage, setPostMessage] = useState("")
   const navigate = useNavigate();
   const location = useLocation();
