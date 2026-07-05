@@ -6,8 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import '../common/NavBar.css'
-
+import '../common/NavBar.css';
 import LinkCopy from '../../utils/MiddleWareReact';
 
 export default function CardComponent({ id, item, handleDelete, isLoggedIn, currentUser, setMessage }) {

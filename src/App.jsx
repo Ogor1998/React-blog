@@ -12,32 +12,36 @@ import Edit from './pages/posts/Edit'
 import Error from './pages/Error'
 import Profile from './components/Profile'
 import CssBaseline from '@mui/material/CssBaseline';
-
+import { useAuth } from './components/context/AuthContext'
 
 function App() {
 
   const [message, setMessage] = useState("")
   const [postMessage, setPostMessage] = useState("")
-  const [isLoggedIn, setIsloggedIn] = useState(false)
-  const [currentUser, setCurrentUser] = useState(null)
   const navigate = useNavigate();
   const location = useLocation();
+  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useAuth();
 
   const handleLogout = async () => {
     const response = await axios.post('/logout', {}, { withCredentials: true })
     setMessage(response.data.message)
-    setIsloggedIn(false)
+    setIsLoggedIn(false)
     setCurrentUser(null)
     navigate('/posts')
   }
 
   useEffect(() => {
     const checkAuth = async () => {
-      console.log("About to call check-auth")
-      const response = await axios.get('/check-auth', { withCredentials: true })
-      setIsloggedIn(response.data.isLoggedIn)
-      console.log('Response form check-auth:', response.data)
-      setCurrentUser(response.data.user)
+      try {
+        console.log("About to call check-auth")
+        const response = await axios.get('/check-auth', { withCredentials: true })
+        if (response.data.isLoggedIn) {
+          setIsLoggedIn(true);
+          setCurrentUser(response.data.user)
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
     checkAuth();
   }, [])
@@ -50,9 +54,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home message={message} setMessage={setMessage} />} />
         <Route path="/posts" element={<Home message={message} isLoggedIn={isLoggedIn} currentUser={currentUser} setMessage={setMessage} />} />
-        <Route path="/login" element={<Login setMessage={setMessage} setIsLoggedIn={setIsloggedIn} setCurrentUser={setCurrentUser} message={message} />} />
+        <Route path="/login" element={<Login setMessage={setMessage} setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} message={message} />} />
         <Route path="/register" element={<Register
-          setIsLoggedIn={setIsloggedIn}
+          setIsLoggedIn={setIsLoggedIn}
           setCurrentUser={setCurrentUser}
           setMessage={setMessage}
         />} />
