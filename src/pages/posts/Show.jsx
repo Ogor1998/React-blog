@@ -10,9 +10,10 @@ import { useLocation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import ShowCard from '../../components/posts/ShowCard';
+import { useAuth } from '../../components/context/AuthContext';
 
 
-export default function Show({ isLoggedIn, currentUser }) {
+export default function Show() {
     const { id: postId } = useParams();
     const [formData, setFormData] = useState(null)
     const [comments, setComments] = useState([])
@@ -23,7 +24,7 @@ export default function Show({ isLoggedIn, currentUser }) {
     const successMessage = location.state?.success;
     const errorMessage = location.state?.error;
     const [message, setMessage] = useState("")
-
+    const { isLoggedIn, currentUser } = useAuth();
     useEffect(() => {
         if (!postId) return;
         const fetchData = async () => {

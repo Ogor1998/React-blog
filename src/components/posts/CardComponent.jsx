@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import '../common/NavBar.css';
 import LinkCopy from '../../utils/MiddleWareReact';
+import { useAuth } from '../context/AuthContext';
 
-export default function CardComponent({ id, item, handleDelete, isLoggedIn, currentUser, setMessage }) {
-
+export default function CardComponent({ id, item, handleDelete }) {
+    const { isLoggedIn, currentUser, setMessage } = useAuth();
     const deletePost = async () => {
         console.log("deletePost called")
         try {

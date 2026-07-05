@@ -9,12 +9,14 @@ import "./Home.css"
 import SearchField from '../components/SearchField';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import { useAuth } from '../components/context/AuthContext';
 
 
-export default function Home({ message, isLoggedIn, currentUser, setMessage }) {
+export default function Home() {
     const [theData, settheData] = useState([])
     const [search, setSearch] = useState("")
     const location = useLocation();
+    const { isLoggedIn, currentUser, message, setMessage } = useAuth();
     const postMessage = location.state?.message || message;
     const handleChange = (e) => {
         setSearch(e.target.value)

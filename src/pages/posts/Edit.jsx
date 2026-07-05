@@ -10,13 +10,16 @@ import { Typography } from '@mui/material';
 import UploadComponent from '../../components/posts/UploadComponent';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import { useAuth } from '../../components/context/AuthContext';
 
-export default function Edit({ setMessage, message }) {
+export default function Edit() {
     const [formData, setFormData] = useState({ title: "", content: "", author: "", image: "" })
     const navigate = useNavigate();
     const { id } = useParams();
     const [preview, setPreview] = useState(null)
     const [file, setFile] = useState(null)
+    const { setMessage, message } = useAuth()
+
 
     useEffect(() => {
         const fetchData = async () => {

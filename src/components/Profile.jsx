@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProfileComponent from "./profile/ProfileComponent";
 import ProfileEditComponent from "./profile/ProfileEditComponent";
+import { useAuth } from "./context/AuthContext";
 
-export default function Profile({ isLoggedIn }) {
+export default function Profile() {
     const [profile, setProfile] = useState({})
     const [isEditting, setIsEditting] = useState(false)
     const { username } = useParams();
+    const { isLoggedIn } = useAuth()
     console.log("username:", username);
     useEffect(() => {
         if (!username || username === "undefined") return;

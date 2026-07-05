@@ -13,8 +13,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import { IconButton } from '@mui/material';
 import AvatarUpload from '../../components/profile/AvatarUpload';
+import { useAuth } from '../../components/context/AuthContext';
 
-const Register = ({ setIsLoggedIn, setCurrentUser, setMessage }) => {
+const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstname: '',
@@ -28,6 +29,7 @@ const Register = ({ setIsLoggedIn, setCurrentUser, setMessage }) => {
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(null)
     const [showPassword, setShowPassword] = useState(false)
+    const { setIsLoggedIn, setMessage, setCurrentUser } = useAuth();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })

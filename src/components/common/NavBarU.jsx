@@ -13,11 +13,13 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 
-function NavBarU({ isLoggedIn, currentUser, handleLogout }) {
+function NavBarU({ isLoggedIn, currentUser }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const { logout } = useAuth();
     const pages = isLoggedIn ? [
         { label: "Home", path: "/posts" },
         { label: "New", path: "/posts/new" }
@@ -32,7 +34,7 @@ function NavBarU({ isLoggedIn, currentUser, handleLogout }) {
             { label: "Profile", path: `/profile/${currentUser?.username}` },
             { label: "New", path: "/posts/new" },
             { label: "Home", path: "/posts" },
-            { label: "Logout", action: handleLogout }
+            { label: "Logout", action: logout }
         ] : [
             { label: "Register", path: "/register" },
             { label: "Login", path: "/login" },

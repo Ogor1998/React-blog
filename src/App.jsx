@@ -16,19 +16,12 @@ import { useAuth } from './components/context/AuthContext'
 
 function App() {
 
-  const [message, setMessage] = useState("")
+  // const [message, setMessage] = useState("")
   const [postMessage, setPostMessage] = useState("")
   const navigate = useNavigate();
   const location = useLocation();
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useAuth();
 
-  const handleLogout = async () => {
-    const response = await axios.post('/logout', {}, { withCredentials: true })
-    setMessage(response.data.message)
-    setIsLoggedIn(false)
-    setCurrentUser(null)
-    navigate('/posts')
-  }
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -49,17 +42,13 @@ function App() {
   return (
     <div>
       <CssBaseline />
-      <NavBar isLoggedIn={isLoggedIn} currentUser={currentUser} handleLogout={handleLogout} />
+      <NavBar isLoggedIn={isLoggedIn} currentUser={currentUser} />
 
       <Routes>
-        <Route path="/" element={<Home message={message} setMessage={setMessage} />} />
-        <Route path="/posts" element={<Home message={message} isLoggedIn={isLoggedIn} currentUser={currentUser} setMessage={setMessage} />} />
-        <Route path="/login" element={<Login setMessage={setMessage} setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} message={message} />} />
-        <Route path="/register" element={<Register
-          setIsLoggedIn={setIsLoggedIn}
-          setCurrentUser={setCurrentUser}
-          setMessage={setMessage}
-        />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/posts" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/posts/new" element={
           isLoggedIn ?
             <New message={postMessage} setMessage={setPostMessage} />
@@ -70,11 +59,11 @@ function App() {
               }}
               replace />}
         />
-        <Route path="/posts/:id" element={<Show isLoggedIn={isLoggedIn} currentUser={currentUser} />} />
-        <Route path="/posts/:id/edit" element={<Edit setMessage={setMessage} message={message} />} />
+        <Route path="/posts/:id" element={<Show />} />
+        <Route path="/posts/:id/edit" element={<Edit />} />
         <Route path="*" element={<Error />} />
         <Route path="/error" element={<Error />} />
-        <Route path="/profile/:username" element={<Profile isLoggedIn={isLoggedIn} />} />
+        <Route path="/profile/:username" element={<Profile />} />
       </Routes>
 
     </div>

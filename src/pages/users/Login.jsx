@@ -12,14 +12,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { IconButton } from '@mui/material';
 import { useAuth } from '../../components/context/AuthContext';
 
-const Login = ({ setMessage, message }) => {
+const Login = () => {
     const [formData, setFormData] = useState({ username: "", password: "" })
     const [error, setError] = useState("")
     const navigate = useNavigate();
     const location = useLocation();
+    const { setIsLoggedIn, setCurrentUser, message, setMessage } = useAuth();
     const loginMessage = location.state?.message || message
     const [showPassword, setShowPassword] = useState(false)
-    const { setIsLoggedIn, setCurrentUser } = useAuth();
 
     useEffect(() => {
         if (location.state?.error) {
