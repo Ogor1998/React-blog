@@ -43,7 +43,7 @@ const Comments = ({ addComment, isLoggedIn }) => {
     return (
         <Box
             component="form"
-            sx={{ '& .MuiTextField-root': { m: 1, width: '50ch' } }}
+            sx={{ '& .MuiTextField-root': { m: 1, maxWidth: '100%' } }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}

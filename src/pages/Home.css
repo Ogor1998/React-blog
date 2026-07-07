@@ -2,17 +2,27 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    /* padding: 20px; */
-    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
     gap: 10px;
     flex-wrap: wrap;
+    min-height: 500px;
+    justify-content: center;
     /* padding-bottom: 100px; */
     margin-bottom: 20px;
 }
 
+/* .Home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+} */
 
 .Pagination {
     display: flex;
     justify-content: center;
     font-size: 30px;
+    margin-bottom: 20px;
 }

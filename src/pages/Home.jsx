@@ -53,7 +53,7 @@ export default function Home() {
 
 
     return (
-        <Box sx={{ pb: 12 }}>
+        <Box sx={{ pb: 12, minHeight: "100vh" }}>
             <SearchField handleChange={handleChange} />
             {postMessage && (
                 <Alert
