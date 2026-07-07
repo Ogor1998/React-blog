@@ -38,7 +38,7 @@ function App() {
   }, [])
 
   return (
-    <div>
+    <div className='App'>
       <CssBaseline />
       <NavBar isLoggedIn={isLoggedIn} currentUser={currentUser} />
 

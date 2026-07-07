@@ -188,6 +188,6 @@
 
 
 .App {
-  background-color: #fdf0d5;
-
+  /* background-color: #fdf0d5; */
+  padding: 10px;
 }

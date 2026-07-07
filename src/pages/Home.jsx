@@ -4,12 +4,15 @@ import CardComponent from '../components/posts/CardComponent';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-import { Box } from '@mui/material';
+import { Box, Pagination, Stack } from '@mui/material';
 import "./Home.css"
 import SearchField from '../components/SearchField';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useAuth } from '../components/context/AuthContext';
+import Paginate from '../utils/paginate';
+import { useMemo } from 'react';
+
 
 
 export default function Home() {
@@ -31,7 +34,14 @@ export default function Home() {
             console.log(error)
         }
     }
-    const filterData = theData.filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
+    const filterData = useMemo(() => {
+        return theData.filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
+    }, [theData, search])
+
+    const [currentPage, setCurrentPage] = useState(0)
+    const displayData = search ? filterData : theData;
+    const pages = Paginate(displayData);
+    const currentItems = pages[currentPage] || [];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,7 +53,7 @@ export default function Home() {
 
 
     return (
-        <Box>
+        <Box sx={{ pb: 12 }}>
             <SearchField handleChange={handleChange} />
             {postMessage && (
                 <Alert
@@ -73,7 +83,7 @@ export default function Home() {
 
             <div className='Home'>
 
-                {filterData.map(item =>
+                {currentItems.map(item =>
                     <CardComponent
                         key={item._id}
                         id={item._id}
@@ -85,7 +95,19 @@ export default function Home() {
                     />
                 )}
             </div>
+            <div className='Pagination'>
+                <Stack spacing={2}>
+                    <Pagination
+                        count={pages.length}
+                        page={currentPage + 1}
+                        onChange={(event, value) => setCurrentPage(value - 1)}
+                        color="primary"
+                    />
+                </Stack>
 
+
+
+            </div>
 
         </Box>
 

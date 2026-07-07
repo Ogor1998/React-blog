@@ -113,3 +113,11 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+
+/* html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+} */
