@@ -8,7 +8,12 @@ export default function SearchField({ handleChange }) {
     return (
         <Box
             component="form"
-            sx={{ '& .MuiTextField-root': { m: 1, maxWidth: '100%' } }}
+            sx={{
+                '& .MuiTextField-root': {
+                    m: 1, maxWidth: 700,
+                    width: '100%',
+                }
+            }}
             noValidate
             autoComplete="off"
         >

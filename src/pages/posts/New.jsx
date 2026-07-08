@@ -67,7 +67,17 @@ export default function New({ message, setMessage }) {
     return (
         <Box
             component="form"
-            sx={{ '& .MuiTextField-root': { m: 1, width: '50ch' } }}
+            sx={{
+                '& .MuiTextField-root': {
+                    m: 1,
+                    width: '50ch',
+                    maxWidth: 700,
+                    width: '100%',
+                    mx: 'auto',
+                    // px: 2
+                }
+            }}
+
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
