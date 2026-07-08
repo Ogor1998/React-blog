@@ -13,7 +13,7 @@ import Error from './pages/Error'
 import Profile from './components/Profile'
 import CssBaseline from '@mui/material/CssBaseline';
 import { useAuth } from './components/context/AuthContext'
-
+import Footer from './components/common/Footer'
 function App() {
   const [postMessage, setPostMessage] = useState("")
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ function App() {
         <Route path="/error" element={<Error />} />
         <Route path="/profile/:username" element={<Profile />} />
       </Routes>
-
+      <Footer />
     </div>
   )
 }

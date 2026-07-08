@@ -11,6 +11,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import { IconButton } from '@mui/material';
 import { useAuth } from '../../components/context/AuthContext';
+import GlitchText from '../../components/common/GlitchText';
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: "", password: "" })
@@ -74,6 +75,16 @@ const Login = () => {
                 severity="error" onClose={() => setMessage("")} >
                 {error}
             </Alert>}
+
+
+            <GlitchText
+                speed={1}
+                enableShadows
+                enableOnHover={false}
+                className='custom-class'
+            >
+                React Blog
+            </GlitchText>
             <Box
                 component="form"
                 onSubmit={handleLogin}
@@ -83,16 +94,14 @@ const Login = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: 'center',
-                    border: "1px solid #000",
-                    height: '70ch'
+                    // border: "1px solid #000",
+                    height: '40ch'
                 }}
                 noValidate
                 autoComplete="off"
             >
-                <Typography variant='h3'>
-                    Welcome to React Blog
-                </Typography>
-                <Typography variant='h5' color='secondary'>
+
+                <Typography variant='h3' color='primary'>
                     Sign In here
                 </Typography>
                 <TextField id="outlined-basic" label="Username" variant="outlined" name='username' onChange={handleChange} value={formData.username} />

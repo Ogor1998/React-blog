@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import LinkCopy from '../../Utils/MiddleWareReact';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import CheckIcon from '@mui/icons-material/Check';
 
 const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLikeCount, alreadyLiked, setMessage }) => {
@@ -61,11 +61,32 @@ const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLi
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={updateText}
-                    variant='outlined'
-                    color={isClicked ? 'success' : 'primary'}
+                    animate={{
+                        scale: isClicked ? [1, 1.08, 1] : 1
+                    }}
+                    transition={{
+                        duration: 0.4
+                    }}
+                    variant="outlined"
+                    color={isClicked ? "success" : "primary"}
                 >
-                    {isClicked ? < CheckIcon /> : <IosShareIcon />}
-                    {text}
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={isClicked ? "success" : "share"}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                            }}
+                        >
+                            {isClicked ? <CheckIcon /> : <IosShareIcon />}
+                            {text}
+                        </motion.div>
+                    </AnimatePresence>
                 </MotionButton>
                 {/* <Button variant='outlined'><Share</Button> */}
                 {isAuthor && <Link to={`/posts/${formData._id}/edit`} >

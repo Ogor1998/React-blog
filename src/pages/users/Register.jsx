@@ -14,7 +14,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { IconButton } from '@mui/material';
 import AvatarUpload from '../../components/profile/AvatarUpload';
 import { useAuth } from '../../components/context/AuthContext';
-
+import GlitchText from '../../components/common/GlitchText';
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -77,6 +77,16 @@ const Register = () => {
             {error && <Alert icon={<CheckIcon fontSize="inherit" />} severity="error" onClose={() => setMessage("")}>
                 {error}
             </Alert>}
+
+
+            <GlitchText
+                speed={1}
+                enableShadows
+                enableOnHover={false}
+                className='custom-class'
+            >
+                React Blog
+            </GlitchText>
             <Box
                 component="form"
                 onSubmit={handleRegister}
@@ -86,17 +96,14 @@ const Register = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    border: "1px solid #000",
-                    marginTop: '20px',
+                    // border: "1px solid #000",
+                    // marginTop: '20px',
                     padding: '20px'
                 }}
                 noValidate
                 autoComplete="off"
             >
-                <Typography variant='h3'>
-                    Welcome to React Blog
-                </Typography>
-                <Typography variant='h5' color='secondary'>
+                <Typography variant='h5' color='primary'>
                     Sign Up here
                 </Typography>
 
