@@ -13,6 +13,7 @@ import ShowCard from '../../components/posts/ShowCard';
 import { useAuth } from '../../components/context/AuthContext';
 
 
+
 export default function Show() {
     const { id: postId } = useParams();
     const [formData, setFormData] = useState(null)

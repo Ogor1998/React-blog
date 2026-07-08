@@ -74,7 +74,7 @@ export default function New({ message, setMessage }) {
                     maxWidth: 700,
                     width: '100%',
                     mx: 'auto',
-                    // px: 2
+
                 }
             }}
 

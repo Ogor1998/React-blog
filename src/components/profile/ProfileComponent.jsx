@@ -8,8 +8,13 @@ import {
     CircularProgress,
     Button
 } from "@mui/material";
+import { useAuth } from "../context/AuthContext";
 
-export default function ProfileComponent({ profile, handleClick, isLoggedIn }) {
+export default function ProfileComponent({ profile, handleClick }) {
+    const { currentUser } = useAuth();
+    const allowedToEditProfile = profile._id === currentUser?._id;
+    console.log(allowedToEditProfile)
+
     if (!profile) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
@@ -17,6 +22,7 @@ export default function ProfileComponent({ profile, handleClick, isLoggedIn }) {
             </Box>
         );
     }
+
 
     return (
         <Box
@@ -36,7 +42,7 @@ export default function ProfileComponent({ profile, handleClick, isLoggedIn }) {
                             mb: 3,
                         }}
                     >
-                        {isLoggedIn && <Button color='alert' variant="outlined" onClick={handleClick} sx={{ marginBottom: '10px' }}>Edit Profile</Button>}
+                        {allowedToEditProfile && <Button color='alert' variant="outlined" onClick={handleClick} sx={{ marginBottom: '10px' }}>Edit Profile</Button>}
                         <Avatar
                             src={profile.image}
                             alt={profile.username}
