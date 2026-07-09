@@ -15,6 +15,8 @@ import { IconButton } from '@mui/material';
 import AvatarUpload from '../../components/profile/AvatarUpload';
 import { useAuth } from '../../components/context/AuthContext';
 import GlitchText from '../../components/common/GlitchText';
+import { Paper } from '@mui/material';
+import './Form.css'
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -73,7 +75,7 @@ const Register = () => {
         }
     }
     return (
-        <Box>
+        <Box component={Paper} elevation={3} sx={{ p: 2, m: 1, backgroundColor: 'e9ecef' }}>
             {error && <Alert icon={<CheckIcon fontSize="inherit" />} severity="error" onClose={() => setMessage("")}>
                 {error}
             </Alert>}
@@ -90,16 +92,12 @@ const Register = () => {
             <Box
                 component="form"
                 onSubmit={handleRegister}
-
+                className='Register'
                 sx={{
                     '& > :not(style)': { m: 0.5, width: '70ch' },
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    // border: "1px solid #000",
-                    // marginTop: '20px',
-                    padding: '20px'
+
                 }}
+
                 noValidate
                 autoComplete="off"
             >
@@ -108,17 +106,7 @@ const Register = () => {
                 </Typography>
 
                 <Box><AvatarUpload setFile={setFile} />
-                    <Box sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        flexDirection: 'row',
-                        // border: '1px solid black',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '10px',
-                        padding: '20px',
-                        height: '300px'
-                    }}>
+                    <Box className='Register_Box'>
 
                         <TextField id="outlined-basic" label="FirstName" variant="outlined" name='firstname' value={formData.firstname} onChange={handleChange} />
                         <TextField id="outlined-basic" label="LastName" variant="outlined" name='lastname' value={formData.lastname} onChange={handleChange} />

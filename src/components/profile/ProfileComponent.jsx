@@ -6,14 +6,15 @@ import {
     CardContent,
     Typography,
     CircularProgress,
-    Button
+    Button,
+    Paper
 } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 
 export default function ProfileComponent({ profile, handleClick }) {
     const { currentUser } = useAuth();
     const allowedToEditProfile = profile._id === currentUser?._id;
-    console.log(allowedToEditProfile)
+    console.log('this is updated time:', profile.updatedAt)
 
     if (!profile) {
         return (
@@ -31,8 +32,9 @@ export default function ProfileComponent({ profile, handleClick }) {
                 justifyContent: "center",
                 mt: 5,
             }}
+
         >
-            <Card sx={{ width: 500 }}>
+            <Card sx={{ width: 500, boxShadow: ' 10px 10px 20px rgba(0, 0, 0, 0.3)' }}>
                 <CardContent>
                     <Box
                         sx={{
@@ -41,6 +43,7 @@ export default function ProfileComponent({ profile, handleClick }) {
                             alignItems: "center",
                             mb: 3,
                         }}
+                        elevation={3}
                     >
                         {allowedToEditProfile && <Button color='alert' variant="outlined" onClick={handleClick} sx={{ marginBottom: '10px' }}>Edit Profile</Button>}
                         <Avatar
@@ -67,8 +70,8 @@ export default function ProfileComponent({ profile, handleClick }) {
                     </Typography>
 
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                        Member since{" "}
-                        {new Date(profile.createdAt).toLocaleDateString()}
+                        Last Profile Edit{" "}
+                        {new Date(profile.updatedAt).toLocaleDateString()}
                     </Typography>
                 </CardContent>
             </Card>

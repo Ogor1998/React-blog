@@ -1,0 +1,33 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40ch;
+}
+
+
+.Register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px
+}
+
+
+.Register_Box {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    height: 300px;
+    width: auto;
+}
+
+
+/* input {
+    background-color: #fff !important;
+} */

@@ -12,6 +12,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { IconButton } from '@mui/material';
 import { useAuth } from '../../components/context/AuthContext';
 import GlitchText from '../../components/common/GlitchText';
+import { Paper } from '@mui/material';
+import './Form.css'
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: "", password: "" })
@@ -27,10 +29,6 @@ const Login = () => {
             setError(location.state.error);
         }
     }, [location.state]);
-
-    // useEffect(() => {
-    //     console.log("location.state:", location.state);
-    // }, [location]);
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -64,7 +62,7 @@ const Login = () => {
         }
     }
     return (
-        <Box>
+        <Box component={Paper} elevation={3} sx={{ p: 2, m: 1, backgroundColor: '#e9ecef' }}>
             {loginMessage && <Alert
                 icon={<CheckIcon fontSize="inherit" />}
                 severity="error" onClose={() => setMessage("")} >
@@ -89,14 +87,9 @@ const Login = () => {
                 component="form"
                 onSubmit={handleLogin}
                 sx={{
-                    '& > :not(style)': { m: 2, width: '50ch' },
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: 'center',
-                    // border: "1px solid #000",
-                    height: '40ch'
+                    '& > :not(style)': { m: 2, width: '50ch' }
                 }}
+                className='Login'
                 noValidate
                 autoComplete="off"
             >
@@ -109,7 +102,6 @@ const Login = () => {
                     id="outlined-basic"
                     label="Password"
                     variant="outlined"
-                    // type='password'
                     name='password'
                     onChange={handleChange}
                     value={formData.password}

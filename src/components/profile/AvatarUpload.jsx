@@ -32,9 +32,13 @@ export default function AvatarUpload({ setFile }) {
                     outline: '2px solid',
                     outlineOffset: '2px',
                 },
+
             }}
         >
-            <Avatar alt="Upload new avatar" src={avatarSrc} />
+            <Avatar alt="Upload new avatar" src={avatarSrc} sx={{
+                width: 56,
+                height: 56,
+            }} />
             <input
                 type="file"
                 accept="image/*"
