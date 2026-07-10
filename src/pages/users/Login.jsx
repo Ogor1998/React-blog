@@ -62,75 +62,94 @@ const Login = () => {
         }
     }
     return (
-        <Box component={Paper} elevation={3} sx={{ p: 2, m: 1, backgroundColor: '#e9ecef' }}>
-            {loginMessage && <Alert
-                icon={<CheckIcon fontSize="inherit" />}
-                severity="error" onClose={() => setMessage("")} >
-                {loginMessage}
-            </Alert>}
-            {error && <Alert
-                icon={<CheckIcon fontSize="inherit" />}
-                severity="error" onClose={() => setMessage("")} >
-                {error}
-            </Alert>}
 
 
-            <GlitchText
-                speed={1}
-                enableShadows
-                enableOnHover={false}
-                className='custom-class'
-            >
-                React Blog
-            </GlitchText>
+        <Box className="Main_Box">
+
             <Box
-                component="form"
-                onSubmit={handleLogin}
+                className='form__box '
+                component={Paper}
+                elevation={3}
                 sx={{
-                    '& > :not(style)': { m: 2, width: '50ch' }
-                }}
-                className='Login'
-                noValidate
-                autoComplete="off"
-            >
+                    p: 2,
+                    backgroundColor: '#e9ecef'
+                }}>
+                {loginMessage && <Alert
+                    icon={<CheckIcon fontSize="inherit" />}
+                    severity="error" onClose={() => setMessage("")} >
+                    {loginMessage}
+                </Alert>}
+                {error && <Alert
+                    icon={<CheckIcon fontSize="inherit" />}
+                    severity="error" onClose={() => setMessage("")} >
+                    {error}
+                </Alert>}
 
-                <Typography variant='h3' color='primary'>
-                    Sign In here
-                </Typography>
-                <TextField id="outlined-basic" label="Username" variant="outlined" name='username' onChange={handleChange} value={formData.username} />
-                <TextField
-                    id="outlined-basic"
-                    label="Password"
-                    variant="outlined"
-                    name='password'
-                    onChange={handleChange}
-                    value={formData.password}
-                    type={showPassword ? 'text' : 'password'}
-                    slotProps={{
-                        input: {
-                            endAdornment: (
-                                < InputAdornment position="end" >
-                                    <IconButton
-                                        aria-label={
-                                            showPassword ? 'hide the password' : 'display the password'
-                                        }
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        onMouseUp={handleMouseUpPassword}
-                                    >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            )
+
+                <GlitchText
+                    speed={1}
+                    enableShadows
+                    enableOnHover={false}
+                    className='custom-class'
+                >
+                    React Blog
+                </GlitchText>
+                <Box
+                    component="form"
+                    onSubmit={handleLogin}
+                    sx={{
+                        '& > :not(style)': { m: 2, width: '50ch' }
+                    }}
+                    className='Login'
+                    noValidate
+                    autoComplete="off"
+                >
+
+                    <Typography variant='h3' color='primary'>
+                        Sign In here
+                    </Typography>
+                    <TextField id="outlined-basic" label="Username" variant="outlined" name='username' onChange={handleChange} value={formData.username} />
+                    <TextField
+                        id="outlined-basic"
+                        label="Password"
+                        variant="outlined"
+                        name='password'
+                        onChange={handleChange}
+                        value={formData.password}
+                        type={showPassword ? 'text' : 'password'}
+                        slotProps={{
+                            input: {
+                                endAdornment: (
+                                    < InputAdornment position="end" >
+                                        <IconButton
+                                            aria-label={
+                                                showPassword ? 'hide the password' : 'display the password'
+                                            }
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            onMouseUp={handleMouseUpPassword}
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+
+                            }
+                        }
 
                         }
-                    }
-
-                    }
-                />
-                <Button type='submit' variant='outlined' sx={{ fontSize: '16px' }}>Login</Button>
+                    />
+                    <Button type='submit' variant='outlined' sx={{ fontSize: '16px' }}>Login</Button>
+                </Box>
             </Box>
+            <Box className='image__box'>
+                <img src="https://images.unsplash.com/vector-1738590593450-647695dbf9d0?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""
+                    className='image'
+                />
+            </Box>
+
         </Box>
+
     );
 
 

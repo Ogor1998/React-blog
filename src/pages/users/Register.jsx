@@ -27,11 +27,11 @@ const Register = () => {
         password: '',
         image: ''
     })
-    const [error, setError] = useState("")
+    // const [error, setError] = useState("")
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(null)
     const [showPassword, setShowPassword] = useState(false)
-    const { setIsLoggedIn, setMessage, setCurrentUser } = useAuth();
+    const { setIsLoggedIn, message, setMessage, setCurrentUser } = useAuth();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -68,87 +68,97 @@ const Register = () => {
             setCurrentUser(response.data.user)
             navigate('/posts')
         } catch (err) {
-            console.log(err.response?.data);
-            console.log(err.response?.status);
-            console.log(err);
-            setError(err.response?.data?.message || "Register Failed")
+            setMessage(err.response?.data?.message || "Register Failed")
         }
     }
     return (
-        <Box component={Paper} elevation={3} sx={{ p: 2, m: 1, backgroundColor: 'e9ecef' }}>
-            {error && <Alert icon={<CheckIcon fontSize="inherit" />} severity="error" onClose={() => setMessage("")}>
-                {error}
-            </Alert>}
 
-
-            <GlitchText
-                speed={1}
-                enableShadows
-                enableOnHover={false}
-                className='custom-class'
-            >
-                React Blog
-            </GlitchText>
-            <Box
-                component="form"
-                onSubmit={handleRegister}
-                className='Register'
+        <Box className='Main_Box'>
+            <Box component={Paper} elevation={3}
                 sx={{
-                    '& > :not(style)': { m: 0.5, width: '70ch' },
-
+                    p: 2,
+                    backgroundColor: 'e9ecef'
                 }}
+                className='form__box'>
+                {message && <Alert icon={<CheckIcon fontSize="inherit" />} severity="error" onClose={() => setMessage("")}>
+                    {message}
+                </Alert>}
 
-                noValidate
-                autoComplete="off"
-            >
-                <Typography variant='h5' color='primary'>
-                    Sign Up here
-                </Typography>
 
-                <Box><AvatarUpload setFile={setFile} />
-                    <Box className='Register_Box'>
+                <GlitchText
+                    speed={1}
+                    enableShadows
+                    enableOnHover={false}
+                    className='custom-class'
+                >
+                    React Blog
+                </GlitchText>
+                <Box
+                    component="form"
+                    onSubmit={handleRegister}
+                    className='Register'
+                    sx={{
+                        '& > :not(style)': { m: 0.5, width: '55ch' },
 
-                        <TextField id="outlined-basic" label="FirstName" variant="outlined" name='firstname' value={formData.firstname} onChange={handleChange} />
-                        <TextField id="outlined-basic" label="LastName" variant="outlined" name='lastname' value={formData.lastname} onChange={handleChange} />
-                        <TextField id="outlined-basic" label="Username" variant="outlined" name='username' value={formData.username} onChange={handleChange} />
-                        <TextField id="outlined-basic" label="Email" type='email' variant="outlined" name='email' value={formData.email} onChange={handleChange} />
-                        <TextField
-                            id="outlined-basic"
-                            label="Password"
-                            variant="outlined"
-                            name='password'
-                            onChange={handleChange}
-                            value={formData.password}
-                            type={showPassword ? 'text' : 'password'}
-                            slotProps={{
-                                input: {
-                                    endAdornment: (
-                                        < InputAdornment position="end" >
-                                            <IconButton
-                                                aria-label={
-                                                    showPassword ? 'hide the password' : 'display the password'
-                                                }
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                onMouseUp={handleMouseUpPassword}
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
+                    }}
+
+                    noValidate
+                    autoComplete="off"
+                >
+                    <Typography variant='h5' color='primary'>
+                        Sign Up here
+                    </Typography>
+
+                    <Box><AvatarUpload setFile={setFile} />
+                        <Box className='Register_Box'>
+
+                            <TextField id="outlined-basic" label="FirstName" variant="outlined" name='firstname' value={formData.firstname} onChange={handleChange} />
+                            <TextField id="outlined-basic" label="LastName" variant="outlined" name='lastname' value={formData.lastname} onChange={handleChange} />
+                            <TextField id="outlined-basic" label="Username" variant="outlined" name='username' value={formData.username} onChange={handleChange} />
+                            <TextField id="outlined-basic" label="Email" type='email' variant="outlined" name='email' value={formData.email} onChange={handleChange} />
+                            <TextField
+                                id="outlined-basic"
+                                label="Password"
+                                variant="outlined"
+                                name='password'
+                                onChange={handleChange}
+                                value={formData.password}
+                                type={showPassword ? 'text' : 'password'}
+                                slotProps={{
+                                    input: {
+                                        endAdornment: (
+                                            < InputAdornment position="end" >
+                                                <IconButton
+                                                    aria-label={
+                                                        showPassword ? 'hide the password' : 'display the password'
+                                                    }
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    onMouseUp={handleMouseUpPassword}
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+
+                                    }
+                                }
 
                                 }
-                            }
-
-                            }
-                        />
-                        {/* {preview && <img src={preview} width="200" />}
+                            />
+                            {/* {preview && <img src={preview} width="200" />}
                     <UploadComponent setFile={setFile} setPreview={setPreview} /> */}
 
+                        </Box>
                     </Box>
-                </Box>
 
-                <Button type='submit' variant='outlined'>Register</Button>
+                    <Button type='submit' variant='outlined'>Register</Button>
+                </Box>
+            </Box>
+            <Box className='image__box'>
+                <img src="https://images.unsplash.com/vector-1738590593450-647695dbf9d0?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""
+                    className='image'
+                />
             </Box>
         </Box>
     );
