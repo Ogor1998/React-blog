@@ -9,7 +9,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import '../common/NavBar.css';
 import LinkCopy from '../../utils/MiddleWareReact';
 import { useAuth } from '../context/AuthContext';
-
+import { Box } from '@mui/material';
 export default function CardComponent({ id, item, handleDelete }) {
     const { isLoggedIn, currentUser, setMessage } = useAuth();
     const deletePost = async () => {
@@ -68,6 +68,7 @@ export default function CardComponent({ id, item, handleDelete }) {
                     Delete
                 </Button>}
             </CardActions>
+
         </Card >
     );
 }

@@ -76,7 +76,7 @@ export default function Show() {
                 setFormData(prev => ({ ...prev, likes: [...prev.likes, currentUser._id] }))
             }
         } catch (err) {
-            console.log(err)
+            setMessage(err.response?.message)
         }
     }
 

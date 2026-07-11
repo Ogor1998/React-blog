@@ -20,21 +20,21 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
         image: ""
     });
     const [preview, setPreview] = useState(null)
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState(profile?.image)
 
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                const response = await axios.get(`/profile/${username}`);
-                setFormData(response.data);
-                setPreview(response.data.image)
-            } catch (err) {
-                console.error(err);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchProfile = async () => {
+    //         try {
+    //             const response = await axios.get(`/profile/${username}`);
+    //             setFormData(response.data);
+    //             setPreview(response.data.image)
+    //         } catch (err) {
+    //             console.error(err);
+    //         }
+    //     };
 
-        fetchProfile();
-    }, [username]);
+    //     fetchProfile();
+    // }, [username]);
 
     useEffect(() => {
         if (profile) {
@@ -100,7 +100,7 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
                 Edit Profile
             </Typography>
 
-            <AvatarUpload setFile={setFile} />
+            <AvatarUpload setFile={setFile} currentImage={profile?.image} />
             <TextField
                 label="Username"
                 name="username"
@@ -143,6 +143,7 @@ export default function ProfileEditComponent({ profile, setProfile, handleClick 
                 <Button
                     onClick={() => handleClick()}
                     variant="contained"
+                    color='error'
                 >
                     Cancel
                 </Button>

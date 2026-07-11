@@ -10,12 +10,12 @@ import { Button } from '@mui/material';
 import DeleteComponent from '../common/DeleteComponent';
 import { useNavigate } from 'react-router';
 
-export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser }) {
-    // console.log(item.author);
+export default function CommentComponent({ item, handleDelete, isLoggedIn, currentUser, isAuthor }) {
+    console.log(item.author);
     const isCommentAuthor = currentUser?._id === item.author?._id;
-    const isPostAuthor = currentUser?._id === item.author?._id;
-    const canDelete = isLoggedIn && (isCommentAuthor || isPostAuthor)
-    const LoggedInAndAuthor = isLoggedIn && isCommentAuthor;
+    // const isPostAuthor = currentUser?._id === item.author?._id;
+    const canDelete = isLoggedIn && (isCommentAuthor || isAuthor)
+    // const LoggedInAndAuthor = isLoggedIn && isCommentAuthor;
     const navigate = useNavigate();
     const visitProfile = () => {
         return navigate(`/profile/${item.author?.username}`)

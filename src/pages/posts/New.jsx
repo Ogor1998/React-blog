@@ -16,8 +16,8 @@ import CheckIcon from '@mui/icons-material/Check';
 
 export default function New({ message, setMessage }) {
     const [formData, setFormData] = useState({ title: "", content: "", author: "" })
-    const [file, setFile] = useState(null)
-    const [preview, setPreview] = useState(null)
+    const [file, setFile] = useState([])
+    const [previews, setPreviews] = useState([])
     const [helper, setHelper] = useState(null)
     const navigate = useNavigate();
     const location = useLocation();
@@ -43,7 +43,9 @@ export default function New({ message, setMessage }) {
         form.append("title", formData.title);
         form.append("content", formData.content);
         form.append("category", formData.category || "");
-        form.append("image", file || "");
+        file.forEach((image) => {
+            form.append("image", image);
+        });
 
         try {
             const response = await axios.post("/posts/new", form,
@@ -120,9 +122,20 @@ export default function New({ message, setMessage }) {
                     onChange={handleChange}
 
                 />
-                {preview && <img src={preview} width="200" />}
-                <Box sx={{ display: 'flex', gap: '10px' }}>
-                    <UploadComponent setFile={setFile} setPreview={setPreview} />
+
+                <Box sx={{ display: "flex", gap: 2, overflow: 'scroll' }}>
+                    {previews.map((src, index) => (
+                        <img
+                            src={src}
+                            key={index}
+                            alt={`preview-${index}`}
+                            width="150"
+                        />
+                    ))}
+                </Box>
+
+                <Box sx={{ display: 'flex', gap: '10px', m: 1 }}>
+                    <UploadComponent setFile={setFile} setPreviews={setPreviews} />
                     <Button
                         type="submit"
                         variant="contained"

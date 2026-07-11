@@ -32,6 +32,7 @@ export default function ProfileComponent({ profile, handleClick }) {
                 justifyContent: "center",
                 mt: 5,
             }}
+            className='profile__box'
 
         >
             <Card sx={{ width: 500, boxShadow: ' 10px 10px 20px rgba(0, 0, 0, 0.3)' }}>

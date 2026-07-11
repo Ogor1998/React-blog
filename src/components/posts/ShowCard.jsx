@@ -8,6 +8,7 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import LinkCopy from '../../Utils/MiddleWareReact';
 import { motion, AnimatePresence } from 'motion/react';
 import CheckIcon from '@mui/icons-material/Check';
+import './ShowCard.css'
 
 const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLikeCount, alreadyLiked, setMessage }) => {
     const MotionButton = motion(Button);
@@ -46,7 +47,7 @@ const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLi
                     {formData.content}
                 </Typography>
             </CardContent>
-            <Box >
+            <Box className='Buttons'>
                 <Button
                     variant="outlined"
                     color={alreadyLiked ? 'error' : 'primary'}
@@ -56,7 +57,7 @@ const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLi
                 >
                     {likeCounter}
                 </Button>
-                <Button variant='outlined' color='success' sx={{ margin: '10px' }} onClick={() => handleCommnetShow()}>Comment</Button>
+                <Button variant='outlined' color='success' onClick={() => handleCommnetShow()}>Comment</Button>
                 <MotionButton
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}

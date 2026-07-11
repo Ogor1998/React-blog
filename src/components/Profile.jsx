@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import ProfileComponent from "./profile/ProfileComponent";
 import ProfileEditComponent from "./profile/ProfileEditComponent";
 import { useAuth } from "./context/AuthContext";
+import './Profile.css'
 
 export default function Profile() {
     const [profile, setProfile] = useState({})
@@ -26,7 +27,7 @@ export default function Profile() {
         console.log(isEditting)
     }
     return (
-        <Box>
+        <Box >
             {!isEditting ? <ProfileComponent profile={profile} handleClick={handleClick} isLoggedIn={isLoggedIn} />
                 : <ProfileEditComponent handleClick={handleClick} profile={profile} setProfile={setProfile} />
             }

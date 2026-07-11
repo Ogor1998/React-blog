@@ -21,14 +21,18 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { setIsLoggedIn, setCurrentUser, message, setMessage } = useAuth();
-    const loginMessage = location.state?.message || message
+    // const loginMessage = location.state?.message || message
     const [showPassword, setShowPassword] = useState(false)
 
     useEffect(() => {
         if (location.state?.error) {
             setError(location.state.error);
         }
+        if (location.state?.message) {
+            setMessage(location.state?.message);
+        }
     }, [location.state]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -74,14 +78,14 @@ const Login = () => {
                     p: 2,
                     backgroundColor: '#e9ecef'
                 }}>
-                {loginMessage && <Alert
+                {message && <Alert
                     icon={<CheckIcon fontSize="inherit" />}
                     severity="error" onClose={() => setMessage("")} >
-                    {loginMessage}
+                    {message}
                 </Alert>}
                 {error && <Alert
                     icon={<CheckIcon fontSize="inherit" />}
-                    severity="error" onClose={() => setMessage("")} >
+                    severity="error" onClose={() => setError("")} >
                     {error}
                 </Alert>}
 

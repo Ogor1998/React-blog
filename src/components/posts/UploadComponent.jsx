@@ -14,7 +14,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export default function UploadComponent({ setFile, setPreview }) {
+export default function UploadComponent({ setFile, setPreviews }) {
   return (
 
     <Button
@@ -28,9 +28,9 @@ export default function UploadComponent({ setFile, setPreview }) {
       <VisuallyHiddenInput
         type="file"
         onChange={(event) => {
-          const file = event.target.files[0]
-          setFile(file)
-          setPreview(URL.createObjectURL(file))
+          const files = Array.from(event.target.files)
+          setPreviews(prev => [...prev, ...files.map(file => URL.createObjectURL(file))])
+          setFile(prev => [...prev, ...files])
         }}
       />
     </Button>

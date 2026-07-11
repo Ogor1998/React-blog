@@ -2,8 +2,8 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
 
-export default function AvatarUpload({ setFile }) {
-    const [avatarSrc, setAvatarSrc] = React.useState(undefined);
+export default function AvatarUpload({ setFile, currentImage }) {
+    const [avatarSrc, setAvatarSrc] = React.useState(currentImage);
 
     const handleAvatarChange = (event) => {
         const file = event.target.files?.[0];
