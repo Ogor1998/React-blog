@@ -15,6 +15,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function UploadComponent({ setFile, setPreviews }) {
+
   return (
 
     <Button
@@ -26,6 +27,7 @@ export default function UploadComponent({ setFile, setPreviews }) {
     >
       Upload Images
       <VisuallyHiddenInput
+        multiple
         type="file"
         onChange={(event) => {
           const files = Array.from(event.target.files)
@@ -33,6 +35,8 @@ export default function UploadComponent({ setFile, setPreviews }) {
           setFile(prev => [...prev, ...files])
         }}
       />
+
     </Button>
+
   );
 }

@@ -87,7 +87,7 @@ export default function Show() {
     const alreadyLiked = formData.likes?.some(likeId => likeId.toString() === currentUser?._id)
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '30px' }}>
             {successMessage && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
                 {successMessage}
             </Alert>}

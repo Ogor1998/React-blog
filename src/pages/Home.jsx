@@ -31,7 +31,7 @@ export default function Home() {
             console.log(response.data)
             settheData(prev => prev.filter(post => post._id !== id))
         } catch (error) {
-            console.log(error)
+            setMessage(error.response?.message)
         }
     }
     const filterData = useMemo(() => {

@@ -11,6 +11,7 @@ import TextStyles from '../../components/posts/TextStyles';
 import UploadComponent from '../../components/posts/UploadComponent';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import Delete from '@mui/icons-material/Delete';
 
 
 
@@ -20,8 +21,8 @@ export default function New({ message, setMessage }) {
     const [previews, setPreviews] = useState([])
     const [helper, setHelper] = useState(null)
     const navigate = useNavigate();
-    const location = useLocation();
-    const errorMessage = location.state?.message;
+
+
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name === "title" && value.length > 300) return
@@ -35,7 +36,14 @@ export default function New({ message, setMessage }) {
             setHelper(null)
         }
     }
-
+    const handleDelete = (idx) => {
+        console.log('getting clicked')
+        setPreviews(prev =>
+            prev.filter((_, index) => index !== idx))
+        // setFile(prev =>
+        //     prev.filter((_, index) => index !== idx)
+        // );
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -125,12 +133,15 @@ export default function New({ message, setMessage }) {
 
                 <Box sx={{ display: "flex", gap: 2, overflow: 'scroll' }}>
                     {previews.map((src, index) => (
-                        <img
-                            src={src}
-                            key={index}
-                            alt={`preview-${index}`}
-                            width="150"
-                        />
+                        <div key={index}>
+                            <label htmlFor={index}></label>
+                            <img
+                                src={src}
+                                alt={`preview-${index}`}
+                                width="150"
+                            />
+                            <Delete onClick={() => handleDelete(index)} />
+                        </div>
                     ))}
                 </Box>
 

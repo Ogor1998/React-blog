@@ -9,6 +9,8 @@ import LinkCopy from '../../Utils/MiddleWareReact';
 import { motion, AnimatePresence } from 'motion/react';
 import CheckIcon from '@mui/icons-material/Check';
 import './ShowCard.css'
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLikeCount, alreadyLiked, setMessage }) => {
     const MotionButton = motion(Button);
@@ -28,14 +30,16 @@ const ShowCard = ({ formData, isAuthor, handleCommnetShow, likeCounter, updateLi
 
 
     }
+    console.log(formData)
     return (
         <Card sx={{ width: "100%", padding: "10px" }}>
-            <CardMedia
-                component="img"
-                sx={{ height: 300 }}
-                image={formData.image}
-                title="green iguana"
-            />
+            <Carousel showThumbs={true}>
+                {formData.image.map((src, index) => (
+                    <div key={index}>
+                        <img src={src} alt={`preview-${index}`} />
+                    </div>
+                ))}
+            </Carousel>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                     {formData.title}

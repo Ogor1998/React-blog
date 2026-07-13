@@ -11,25 +11,34 @@ import UploadComponent from '../../components/posts/UploadComponent';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import { useAuth } from '../../components/context/AuthContext';
+import Delete from '@mui/icons-material/Delete';
+import { div } from 'motion/react-client';
 
 export default function Edit() {
     const [formData, setFormData] = useState({ title: "", content: "", author: "", image: "" })
     const navigate = useNavigate();
     const { id } = useParams();
-    const [preview, setPreview] = useState(null)
+    const [previews, setPreviews] = useState([])
     const [file, setFile] = useState(null)
     const { setMessage, message } = useAuth()
-
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(`/posts/${id}`)
             setFormData(response.data)
-            setPreview(response.data.image)
+            console.log(response.data.image)
+            setPreviews(response.data.image)
         }
         fetchData();
     }, [id])
-
+    const handleDelete = (idx) => {
+        console.log('getting clicked')
+        setPreviews(prev =>
+            prev.filter((_, index) => index !== idx))
+        // setFile(prev =>
+        //     prev.filter((_, index) => index !== idx)
+        // );
+    }
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name === "title" && value.length > 300) return
@@ -110,9 +119,24 @@ export default function Edit() {
                     onChange={handleChange}
 
                 />
-                {preview && <img src={preview} width="200" />}
+
+
+                <Box sx={{ display: "flex", gap: 2, overflow: 'scroll' }}>
+                    {previews.map((src, index) => (
+                        <div key={index}>
+                            <label htmlFor={index}></label>
+                            <img
+                                src={src}
+                                alt={`preview-${index}`}
+                                width="150"
+                            />
+                            <Delete onClick={() => handleDelete(index)} />
+                        </div>
+                    ))}
+                </Box>
+
                 <Box sx={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                    <UploadComponent setFile={setFile} setPreview={setPreview} />
+                    <UploadComponent setFile={setFile} setPreviews={setPreviews} />
                     <Button
                         type="submit"
                         variant="contained"

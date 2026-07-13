@@ -16,8 +16,9 @@ export default function CardComponent({ id, item, handleDelete }) {
         console.log("deletePost called")
         try {
             await handleDelete(id)
+            setMessage('Post Deleted Successfully')
         } catch (error) {
-            console.log(error)
+            setMessage(error?.message)
         }
     }
     const isAuthor =

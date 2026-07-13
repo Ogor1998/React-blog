@@ -18,16 +18,21 @@ module.exports.createPost = async (req, res) => {
     const { title, content, category } = req.body;
     console.log(req.body);
     console.log(req.file);
-    if (!req.file) {
-        return res.status(400).json({ message: "Image required" });
+    if (!req.files || req.files.length === 0) {
+        return res.status(400).json({ message: "At least one image required" });
     }
-    const result = await uploadToCloudinary(req.file.buffer);
+
+    const imageUrls = await Promise.all(
+        req.files.map(async (file) => {
+            const result = await uploadToCloudinary(file.buffer);
+            return result.secure_url;
+        }))
     const newPost = new Blog({
         title,
         author: req.user._id,
         content,
         category,
-        image: result.secure_url
+        image: imageUrls
     })
     await newPost.save();
     console.log(newPost)

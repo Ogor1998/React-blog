@@ -54,6 +54,7 @@ module.exports.isCommentAuthor = async (req, res, next) => {
 }
 
 module.exports.validatePost = (req, res, next) => {
+    console.log('this is the req.body', req.body);
     const { error } = postSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')

@@ -18,7 +18,7 @@ const blogSchema = new Schema({
         type: String
     },
     image: {
-        type: String
+        type: [String]
     },
     likes: [{
         type: Schema.Types.ObjectId,
